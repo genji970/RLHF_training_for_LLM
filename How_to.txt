@@ -1,0 +1,12 @@
+pip install -r requirements.txt
+
+python main.py \
+    --model-name Qwen/Qwen2.5-0.5B-Instruct \
+    --dataset-name allenai/openbookqa \
+    --dataset-subset main \
+    --dataset-split train \
+    --task-type auto \
+    --train-gpus 3 \
+    --inference-gpus 1 \
+    --rollout-batch-size 12
+

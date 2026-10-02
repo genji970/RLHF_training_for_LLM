@@ -1,624 +1,1059 @@
-from __future__ import annotations
+from dataclasses import dataclass
+from typing import Any, Dict, List, Optional
 
-from typing import Any, Callable
+import torch
 
-from datasets import (
+from datasets import load_dataset
+
+from torch.utils.data import (
     Dataset,
-    DatasetDict,
-    IterableDataset,
-    IterableDatasetDict,
-    load_dataset,
+    DataLoader,
 )
 
-
-DatasetLike = Dataset | DatasetDict | IterableDataset | IterableDatasetDict
-
-
-# ============================================================
-# Normalized QA schema
-# ============================================================
-#
-# Datasets with a real question + answer are included, including subjective/open-ended QA.
-#
-# Every loader returns:
-#
-#   question: str
-#
-#   reference: dict | None
-#       Supporting information ONLY.
-#       It never contains the gold answer by itself and never contains
-#       GPT/model-generated evaluation outputs.
-#
-#       Examples:
-#         {"choices": ["choice A", "choice B", ...]}
-#         {"context": "...", "choices": [...]}
-#         {"reasoning": "..."}
-#         None
-#
-#   answer: str | list[str]
-#       Gold answer ONLY.
-#
-#       For multiple-choice datasets:
-#           "A", "B", "C", ...
-#
-#       For open-ended datasets:
-#           "18"
-#           ["14 December 1972 UTC", "December 1972"]
-#
-# Excluded on purpose:
-##   - AlpacaEval 2.0: comparison/reference model output, not gold QA
-#   - MT-Bench: judge-based open-ended evaluation, usually no gold answer
-# ============================================================
+from config import DataConfig
 
 
-def _letter(index: int) -> str:
-    if index < 0:
-        raise ValueError(f"Negative answer index: {index}")
-    return chr(ord("A") + index)
+@dataclass
+class CanonicalExample:
+    task_type: str
 
+    question: str
 
-def _map_normalized(
-    ds: DatasetLike,
-    fn: Callable[[dict[str, Any]], dict[str, Any]],
-) -> DatasetLike:
-    if isinstance(ds, (Dataset, IterableDataset)):
-        columns = ds.column_names
-        return ds.map(fn, remove_columns=columns) if columns else ds.map(fn)
+    response: str = ""
+    answer: str = ""
 
-    if isinstance(ds, (DatasetDict, IterableDatasetDict)):
-        out = {}
-        for split_name, split_ds in ds.items():
-            columns = split_ds.column_names
-            out[split_name] = (
-                split_ds.map(fn, remove_columns=columns)
-                if columns
-                else split_ds.map(fn)
-            )
+    choices: Optional[List[str]] = None
 
-        if isinstance(ds, DatasetDict):
-            return DatasetDict(out)
-        return IterableDatasetDict(out)
+    reference: str = ""
 
-    raise TypeError(f"Unsupported dataset type: {type(ds)}")
-
-
-def _mcq_reference(choices: list[str]) -> dict[str, list[str]]:
-    return {"choices": choices}
-
-
-
-# ============================================================
-# 1. OpenAssistant OASST1
-#    Human-authored open-ended instruction/answer data
-# ============================================================
-
-def load_oasst1(
-    split: str = "train",
-    *,
-    num_examples: int | None = 3200,
-    seed: int = 42,
-    cache_dir: str | None = None,
-    **kwargs: Any,
-) -> Dataset:
-    """
-    OpenAssistant OASST1 -> open-ended question/answer pairs.
-
-    Paper IFT filtering:
-      - English
-      - first conversational turn
-      - highest-ranked assistant response (rank 0)
-      - sample 3200 examples
-
-    Output:
-        question  = human prompter message
-        reference = None
-        answer    = human-authored assistant response
-
-    This is subjective/open-ended QA, so there are no choices.
-    """
-    raw = load_dataset(
-        "OpenAssistant/oasst1",
-        split=split,
-        cache_dir=cache_dir,
-        **kwargs,
-    )
-
-    by_id = {row["message_id"]: row for row in raw}
-    examples: list[dict[str, Any]] = []
-
-    for row in raw:
-        if row["role"] != "assistant":
-            continue
-        if row["lang"] != "en":
-            continue
-        if row.get("deleted", False):
-            continue
-        if row.get("rank") != 0:
-            continue
-
-        parent_id = row.get("parent_id")
-        if parent_id is None or parent_id not in by_id:
-            continue
-
-        parent = by_id[parent_id]
-
-        # First conversational turn: root user prompt -> assistant answer.
-        if parent["role"] != "prompter":
-            continue
-        if parent["lang"] != "en":
-            continue
-        if parent.get("deleted", False):
-            continue
-        if parent.get("parent_id") is not None:
-            continue
-
-        examples.append(
-            {
-                "question": parent["text"],
-                "reference": None,
-                "answer": row["text"],
-            }
-        )
-
-    ds = Dataset.from_list(examples)
-
-    if num_examples is not None and len(ds) > num_examples:
-        ds = ds.shuffle(seed=seed).select(range(num_examples))
-
-    return ds
-
-
-# ============================================================
-# 2. ARC-Easy
-# ============================================================
-
-def load_arc_easy(
-    split: str = "test",
-    *,
-    cache_dir: str | None = None,
-    streaming: bool = False,
-    **kwargs: Any,
-) -> DatasetLike:
-    raw = load_dataset(
-        "allenai/ai2_arc",
-        "ARC-Easy",
-        split=split,
-        cache_dir=cache_dir,
-        streaming=streaming,
-        **kwargs,
-    )
-    return _normalize_arc(raw)
-
-
-# ============================================================
-# 3. ARC-Challenge
-# ============================================================
-
-def load_arc_challenge(
-    split: str = "test",
-    *,
-    cache_dir: str | None = None,
-    streaming: bool = False,
-    **kwargs: Any,
-) -> DatasetLike:
-    raw = load_dataset(
-        "allenai/ai2_arc",
-        "ARC-Challenge",
-        split=split,
-        cache_dir=cache_dir,
-        streaming=streaming,
-        **kwargs,
-    )
-    return _normalize_arc(raw)
-
-
-def _normalize_arc(ds: DatasetLike) -> DatasetLike:
-    def normalize(x: dict[str, Any]) -> dict[str, Any]:
-        choices = list(x["choices"]["text"])
-        labels = [str(v) for v in x["choices"]["label"]]
-        answer_key = str(x["answerKey"])
-
-        if answer_key not in labels:
-            raise ValueError(
-                f"ARC answerKey={answer_key!r} not found in labels={labels!r}"
-            )
-
-        correct_idx = labels.index(answer_key)
+    def to_dict(self) -> Dict[str, Any]:
 
         return {
-            "question": x["question"],
-            "reference": _mcq_reference(choices),
-            "answer": _letter(correct_idx),
-        }
-
-    return _map_normalized(ds, normalize)
-
-
-# ============================================================
-# 4. HellaSwag
-# ============================================================
-
-def load_hellaswag(
-    split: str = "validation",
-    *,
-    cache_dir: str | None = None,
-    streaming: bool = False,
-    **kwargs: Any,
-) -> DatasetLike:
-    raw = load_dataset(
-        "Rowan/hellaswag",
-        split=split,
-        cache_dir=cache_dir,
-        streaming=streaming,
-        **kwargs,
-    )
-
-    def normalize(x: dict[str, Any]) -> dict[str, Any]:
-        choices = list(x["endings"])
-
-        try:
-            idx = int(x["label"])
-        except (TypeError, ValueError) as exc:
-            raise ValueError(f"Invalid HellaSwag label: {x.get('label')!r}") from exc
-
-        if not 0 <= idx < len(choices):
-            raise ValueError(
-                f"HellaSwag label {idx} outside {len(choices)} choices"
-            )
-
-        return {
-            "question": x["ctx"],
-            "reference": _mcq_reference(choices),
-            "answer": _letter(idx),
-        }
-
-    return _map_normalized(raw, normalize)
-
-
-# ============================================================
-# 5. Social IQa (SIQA)
-# ============================================================
-
-def load_siqa(
-    split: str = "validation",
-    *,
-    cache_dir: str | None = None,
-    streaming: bool = False,
-    **kwargs: Any,
-) -> DatasetLike:
-    raw = load_dataset(
-        "allenai/social_i_qa",
-        split=split,
-        cache_dir=cache_dir,
-        streaming=streaming,
-        trust_remote_code=True,
-        **kwargs,
-    )
-
-    def normalize(x: dict[str, Any]) -> dict[str, Any]:
-        choices = [x["answerA"], x["answerB"], x["answerC"]]
-
-        try:
-            # Original SIQA labels are 1, 2, 3.
-            idx = int(x["label"]) - 1
-        except (TypeError, ValueError) as exc:
-            raise ValueError(f"Invalid SIQA label: {x.get('label')!r}") from exc
-
-        if not 0 <= idx < len(choices):
-            raise ValueError(f"SIQA label {idx} outside {len(choices)} choices")
-
-        return {
-            "question": x["question"],
-            "reference": {
-                "context": x["context"],
-                "choices": choices,
-            },
-            "answer": _letter(idx),
-        }
-
-    return _map_normalized(raw, normalize)
-
-
-# ============================================================
-# 6. PIQA
-# ============================================================
-
-def load_piqa(
-    split: str = "validation",
-    *,
-    cache_dir: str | None = None,
-    streaming: bool = False,
-    **kwargs: Any,
-) -> DatasetLike:
-    raw = load_dataset(
-        "ybisk/piqa",
-        split=split,
-        cache_dir=cache_dir,
-        streaming=streaming,
-        trust_remote_code=True,
-        **kwargs,
-    )
-
-    def normalize(x: dict[str, Any]) -> dict[str, Any]:
-        choices = [x["sol1"], x["sol2"]]
-
-        try:
-            idx = int(x["label"])
-        except (TypeError, ValueError) as exc:
-            raise ValueError(f"Invalid PIQA label: {x.get('label')!r}") from exc
-
-        # PIQA test labels are unavailable (-1), so a split without
-        # gold labels should not be treated as question+answer data.
-        if idx < 0:
-            raise ValueError(
-                "This PIQA split has no gold answers. "
-                "Use train or validation, not test."
-            )
-
-        if not 0 <= idx < len(choices):
-            raise ValueError(f"PIQA label {idx} outside {len(choices)} choices")
-
-        return {
-            "question": x["goal"],
-            "reference": _mcq_reference(choices),
-            "answer": _letter(idx),
-        }
-
-    return _map_normalized(raw, normalize)
-
-
-# ============================================================
-# 7. GSM8K
-# ============================================================
-
-def load_gsm8k(
-    split: str = "test",
-    *,
-    cache_dir: str | None = None,
-    streaming: bool = False,
-    **kwargs: Any,
-) -> DatasetLike:
-    raw = load_dataset(
-        "openai/gsm8k",
-        "main",
-        split=split,
-        cache_dir=cache_dir,
-        streaming=streaming,
-        **kwargs,
-    )
-
-    def normalize(x: dict[str, Any]) -> dict[str, Any]:
-        full_solution = x["answer"]
-
-        if "####" in full_solution:
-            reasoning, final_answer = full_solution.rsplit("####", 1)
-            reasoning = reasoning.strip()
-            final_answer = final_answer.strip()
-        else:
-            # Defensive fallback if formatting ever changes.
-            reasoning = None
-            final_answer = full_solution.strip()
-
-        return {
-            "question": x["question"],
-            "reference": (
-                {"reasoning": reasoning}
-                if reasoning
-                else None
+            "task_type": self.task_type,
+            "question": self.question,
+            "response": self.response,
+            "answer": self.answer,
+            "choices": (
+                self.choices
+                if self.choices is not None
+                else []
             ),
-            "answer": final_answer,
+            "reference": self.reference,
         }
 
-    return _map_normalized(raw, normalize)
 
+class DatasetSchemaNormalizer:
 
-# ============================================================
-# 8. MMLU
-# ============================================================
-
-def load_mmlu(
-    split: str = "test",
-    *,
-    subset: str = "all",
-    cache_dir: str | None = None,
-    streaming: bool = False,
-    **kwargs: Any,
-) -> DatasetLike:
-    raw = load_dataset(
-        "cais/mmlu",
-        subset,
-        split=split,
-        cache_dir=cache_dir,
-        streaming=streaming,
-        **kwargs,
-    )
-
-    def normalize(x: dict[str, Any]) -> dict[str, Any]:
-        choices = list(x["choices"])
-
-        try:
-            idx = int(x["answer"])
-        except (TypeError, ValueError) as exc:
-            raise ValueError(f"Invalid MMLU answer: {x.get('answer')!r}") from exc
-
-        if not 0 <= idx < len(choices):
-            raise ValueError(f"MMLU answer {idx} outside {len(choices)} choices")
-
-        return {
-            "question": x["question"],
-            "reference": _mcq_reference(choices),
-            "answer": _letter(idx),
-        }
-
-    return _map_normalized(raw, normalize)
-
-
-# ============================================================
-# 9. OpenBookQA
-# ============================================================
-
-def load_openbookqa(
-    split: str = "test",
-    *,
-    cache_dir: str | None = None,
-    streaming: bool = False,
-    **kwargs: Any,
-) -> DatasetLike:
-    raw = load_dataset(
-        "allenai/openbookqa",
-        "main",
-        split=split,
-        cache_dir=cache_dir,
-        streaming=streaming,
-        **kwargs,
-    )
-
-    def normalize(x: dict[str, Any]) -> dict[str, Any]:
-        choices = list(x["choices"]["text"])
-        labels = [str(v) for v in x["choices"]["label"]]
-        answer_key = str(x["answerKey"])
-
-        if answer_key not in labels:
-            raise ValueError(
-                f"OpenBookQA answerKey={answer_key!r} "
-                f"not found in labels={labels!r}"
-            )
-
-        idx = labels.index(answer_key)
-
-        reference: dict[str, Any] = {"choices": choices}
-
-        # Some versions/configurations may expose a supporting fact.
-        # Keep it as reference if present, but never treat it as the answer.
-        if x.get("fact1"):
-            reference["context"] = x["fact1"]
-
-        return {
-            "question": x["question_stem"],
-            "reference": reference,
-            "answer": _letter(idx),
-        }
-
-    return _map_normalized(raw, normalize)
-
-
-# ============================================================
-# 10. Natural Questions Open
-# ============================================================
-
-def load_nq_open(
-    split: str = "validation",
-    *,
-    cache_dir: str | None = None,
-    streaming: bool = False,
-    **kwargs: Any,
-) -> DatasetLike:
-    raw = load_dataset(
-        "google-research-datasets/nq_open",
-        split=split,
-        cache_dir=cache_dir,
-        streaming=streaming,
-        **kwargs,
-    )
-
-    def normalize(x: dict[str, Any]) -> dict[str, Any]:
-        answers = x["answer"]
-
-        if isinstance(answers, list):
-            gold_answers = [str(a) for a in answers]
-        else:
-            gold_answers = [str(answers)]
-
-        if not gold_answers:
-            raise ValueError("NQ-Open example has no gold answer")
-
-        return {
-            "question": x["question"],
-            "reference": None,
-            "answer": gold_answers,
-        }
-
-    return _map_normalized(raw, normalize)
-
-
-# ============================================================
-# Registry
-# ============================================================
-
-DATASET_LOADERS = {
-    "oasst1": load_oasst1,
-    "arc_easy": load_arc_easy,
-    "arc_challenge": load_arc_challenge,
-    "hellaswag": load_hellaswag,
-    "siqa": load_siqa,
-    "piqa": load_piqa,
-    "gsm8k": load_gsm8k,
-    "mmlu": load_mmlu,
-    "openbookqa": load_openbookqa,
-    "nq_open": load_nq_open,
-}
-
-
-# ============================================================
-# Sample / sanity check
-# ============================================================
-
-if __name__ == "__main__":
-    test_loaders = [
-        ("OASST1", lambda: load_oasst1(num_examples=3200)),
-        ("ARC-Easy", lambda: load_arc_easy(split="validation")),
-        ("ARC-Challenge", lambda: load_arc_challenge(split="validation")),
-        ("HellaSwag", lambda: load_hellaswag(split="validation")),
-        ("SIQA", lambda: load_siqa(split="validation")),
-        ("PIQA", lambda: load_piqa(split="validation")),
-        ("GSM8K", lambda: load_gsm8k(split="test")),
-        ("MMLU", lambda: load_mmlu(split="test", subset="all")),
-        ("OpenBookQA", lambda: load_openbookqa(split="test")),
-        ("NQ-Open", lambda: load_nq_open(split="validation")),
+    REFERENCE_FIELDS = [
+        "reference",
+        "context",
+        "passage",
+        "article",
+        "document",
+        "fact1",
+        "support",
+        "background",
+        "source",
     ]
 
-    separator = "=" * 100
+    QUESTION_FIELDS = [
+        "question",
+        "question_stem",
+        "prompt",
+        "instruction",
+        "query",
+        "input",
+    ]
 
-    for dataset_name, loader in test_loaders:
-        print(f"\n{separator}")
-        print(f"[{dataset_name}]")
-        print(separator)
+    RESPONSE_FIELDS = [
+        "response",
+        "output",
+        "completion",
+    ]
 
-        try:
-            ds = loader()
-            sample = next(iter(ds))
+    ANSWER_FIELDS = [
+        "answer",
+        "answerKey",
+        "correct_answer",
+        "label",
+        "target",
+    ]
 
-            print(f"Dataset object: {ds}")
-            print("\nNormalized sample:")
-            print(f"question  : {sample.get('question')}")
-            print(f"reference : {sample.get('reference')}")
-            print(f"answer    : {sample.get('answer')}")
+    def __init__(
+        self,
+        requested_task_type: str = "auto",
+    ):
 
-            # MCQ consistency check.
-            reference = sample.get("reference")
-            answer = sample.get("answer")
+        self.requested_task_type = (
+            requested_task_type
+        )
+
+    def detect_task_type(
+        self,
+        row: Dict[str, Any],
+    ) -> str:
+
+        if (
+            self.requested_task_type
+            != "auto"
+        ):
+            return self.requested_task_type
+
+        if (
+            "choices" in row
+            or "options" in row
+            or "distractor1" in row
+            or "distractors" in row
+        ):
+            return "mcqa"
+
+        if (
+            "messages" in row
+            or "conversations" in row
+        ):
+            return "conversation"
+
+        if any(
+            field in row
+            for field in self.RESPONSE_FIELDS
+        ):
+            return "conversation"
+
+        return "qa"
+
+    def normalize(
+        self,
+        row: Dict[str, Any],
+    ) -> Dict[str, Any]:
+
+        task_type = self.detect_task_type(
+            row
+        )
+
+        if task_type == "conversation":
+            example = (
+                self._normalize_conversation(
+                    row
+                )
+            )
+
+        elif task_type == "mcqa":
+            example = self._normalize_mcqa(
+                row
+            )
+
+        elif task_type == "qa":
+            example = self._normalize_qa(
+                row
+            )
+
+        else:
+            raise ValueError(
+                f"Unknown task type: {task_type}"
+            )
+
+        return example.to_dict()
+
+    def _normalize_conversation(
+        self,
+        row: Dict[str, Any],
+    ) -> CanonicalExample:
+
+        messages = row.get("messages")
+
+        if messages is None:
+            messages = row.get(
+                "conversations"
+            )
+
+        if isinstance(messages, list):
+
+            question = None
+            response = None
+
+            for message in messages:
+
+                role = str(
+                    message.get(
+                        "role",
+                        message.get(
+                            "from",
+                            "",
+                        ),
+                    )
+                ).lower()
+
+                content = str(
+                    message.get(
+                        "content",
+                        message.get(
+                            "value",
+                            "",
+                        ),
+                    )
+                )
+
+                if role in {
+                    "user",
+                    "human",
+                }:
+                    question = content
+
+                elif (
+                    role in {
+                        "assistant",
+                        "gpt",
+                        "bot",
+                    }
+                    and question is not None
+                ):
+                    response = content
+                    break
 
             if (
-                isinstance(reference, dict)
-                and reference.get("choices") is not None
-                and isinstance(answer, str)
-                and len(answer) == 1
-                and "A" <= answer <= "Z"
+                question is None
+                or response is None
             ):
-                choices = reference["choices"]
-                idx = ord(answer) - ord("A")
+                raise ValueError(
+                    "Could not extract "
+                    "user/assistant pair."
+                )
 
-                print("\nMCQ sanity check:")
+        else:
 
-                if 0 <= idx < len(choices):
-                    print(f"{answer} -> {choices[idx]}")
-                    print("MATCH: answer points to a valid choice.")
-                else:
-                    print(
-                        f"WARNING: answer={answer} is outside "
-                        f"{len(choices)} choices."
+            question = self._find_first(
+                row,
+                self.QUESTION_FIELDS,
+            )
+
+            response = self._find_first(
+                row,
+                self.RESPONSE_FIELDS,
+            )
+
+            if not response:
+
+                response = str(
+                    row.get(
+                        "answer",
+                        "",
+                    )
+                )
+
+        reference = (
+            self._extract_reference(row)
+        )
+
+        return CanonicalExample(
+            task_type="conversation",
+            question=str(question),
+            response=str(response),
+            reference=reference,
+        )
+
+    def _normalize_mcqa(
+        self,
+        row: Dict[str, Any],
+    ) -> CanonicalExample:
+
+        question = self._find_first(
+            row,
+            self.QUESTION_FIELDS,
+        )
+
+        choices, labels = (
+            self._extract_choices(row)
+        )
+
+        raw_answer = self._find_first(
+            row,
+            self.ANSWER_FIELDS,
+        )
+
+        answer = self._resolve_answer(
+            raw_answer=raw_answer,
+            choices=choices,
+            labels=labels,
+        )
+
+        reference = (
+            self._extract_reference(row)
+        )
+
+        return CanonicalExample(
+            task_type="mcqa",
+            question=str(question),
+            answer=answer,
+            choices=choices,
+            reference=reference,
+        )
+
+    def _normalize_qa(
+        self,
+        row: Dict[str, Any],
+    ) -> CanonicalExample:
+
+        question = self._find_first(
+            row,
+            self.QUESTION_FIELDS,
+        )
+
+        answer = self._find_first(
+            row,
+            self.ANSWER_FIELDS,
+        )
+
+        reference = (
+            self._extract_reference(row)
+        )
+
+        return CanonicalExample(
+            task_type="qa",
+            question=str(question),
+            answer=str(answer),
+            reference=reference,
+        )
+
+    def _extract_reference(
+        self,
+        row: Dict[str, Any],
+    ) -> str:
+
+        for field in self.REFERENCE_FIELDS:
+
+            value = row.get(field)
+
+            if value is None:
+                continue
+
+            if isinstance(value, str):
+                if value.strip():
+                    return value
+
+            else:
+                return str(value)
+
+        return ""
+
+    def _extract_choices(
+        self,
+        row: Dict[str, Any],
+    ):
+
+        raw_choices = row.get(
+            "choices"
+        )
+
+        if raw_choices is None:
+            raw_choices = row.get(
+                "options"
+            )
+
+        choices = []
+        labels = []
+
+        if isinstance(
+            raw_choices,
+            dict,
+        ):
+
+            texts = raw_choices.get(
+                "text",
+                raw_choices.get(
+                    "choices",
+                    [],
+                ),
+            )
+
+            raw_labels = raw_choices.get(
+                "label",
+                [],
+            )
+
+            choices = [
+                str(x)
+                for x in texts
+            ]
+
+            labels = [
+                str(x)
+                for x in raw_labels
+            ]
+
+        elif isinstance(
+            raw_choices,
+            list,
+        ):
+
+            if (
+                len(raw_choices) > 0
+                and isinstance(
+                    raw_choices[0],
+                    dict,
+                )
+            ):
+
+                for index, item in enumerate(
+                    raw_choices
+                ):
+
+                    text = item.get(
+                        "text",
+                        item.get(
+                            "content",
+                            item.get(
+                                "value",
+                                "",
+                            ),
+                        ),
                     )
 
-        except Exception as exc:
-            print(f"FAILED to load/check {dataset_name}")
-            print(f"{type(exc).__name__}: {exc}")
+                    label = item.get(
+                        "label",
+                        chr(
+                            ord("A")
+                            + index
+                        ),
+                    )
+
+                    choices.append(
+                        str(text)
+                    )
+
+                    labels.append(
+                        str(label)
+                    )
+
+            else:
+
+                choices = [
+                    str(x)
+                    for x in raw_choices
+                ]
+
+                labels = [
+                    chr(
+                        ord("A") + i
+                    )
+                    for i in range(
+                        len(choices)
+                    )
+                ]
+
+        # SciQ 같은 구조
+        if not choices:
+
+            correct = row.get(
+                "correct_answer"
+            )
+
+            distractors = []
+
+            for key in [
+                "distractor1",
+                "distractor2",
+                "distractor3",
+            ]:
+                if key in row:
+                    distractors.append(
+                        str(row[key])
+                    )
+
+            if correct is not None:
+
+                choices = [
+                    str(correct),
+                    *distractors,
+                ]
+
+                labels = [
+                    chr(
+                        ord("A") + i
+                    )
+                    for i in range(
+                        len(choices)
+                    )
+                ]
+
+        return choices, labels
+
+    def _resolve_answer(
+        self,
+        raw_answer,
+        choices,
+        labels,
+    ) -> str:
+
+        if raw_answer is None:
+            return ""
+
+        if isinstance(
+            raw_answer,
+            bool,
+        ):
+            return str(raw_answer)
+
+        if isinstance(
+            raw_answer,
+            int,
+        ):
+
+            if (
+                0
+                <= raw_answer
+                < len(choices)
+            ):
+                return choices[
+                    raw_answer
+                ]
+
+            return str(raw_answer)
+
+        raw_answer = str(
+            raw_answer
+        )
+
+        if raw_answer in labels:
+
+            index = labels.index(
+                raw_answer
+            )
+
+            if index < len(choices):
+                return choices[index]
+
+        if (
+            raw_answer.isdigit()
+            and choices
+        ):
+
+            index = int(raw_answer)
+
+            if (
+                0 <= index < len(choices)
+            ):
+                return choices[index]
+
+        return raw_answer
+
+    def _find_first(
+        self,
+        row,
+        candidates,
+    ):
+
+        for key in candidates:
+
+            if key not in row:
+                continue
+
+            value = row[key]
+
+            if value is None:
+                continue
+
+            return value
+
+        return ""
+
+
+class CanonicalPromptFormatter:
+
+    def build_user_prompt(
+        self,
+        example: Dict[str, Any],
+    ) -> str:
+
+        parts = []
+
+        reference = example.get(
+            "reference",
+            "",
+        )
+
+        if reference:
+
+            parts.append(
+                "Reference:\n"
+                f"{reference}"
+            )
+
+        question = example[
+            "question"
+        ]
+
+        parts.append(
+            f"Question:\n{question}"
+        )
+
+        choices = example.get(
+            "choices",
+            [],
+        )
+
+        if choices:
+
+            choice_lines = []
+
+            for index, choice in enumerate(
+                choices
+            ):
+
+                label = chr(
+                    ord("A") + index
+                )
+
+                choice_lines.append(
+                    f"{label}. {choice}"
+                )
+
+            parts.append(
+                "Choices:\n"
+                + "\n".join(
+                    choice_lines
+                )
+            )
+
+        return "\n\n".join(parts)
+
+    def get_target(
+        self,
+        example: Dict[str, Any],
+    ) -> str:
+
+        if (
+            example["task_type"]
+            == "conversation"
+        ):
+            return example["response"]
+
+        return example["answer"]
+
+
+class CanonicalHFDataset(Dataset):
+
+    def __init__(
+        self,
+        dataset,
+        normalizer,
+    ):
+
+        self.dataset = dataset
+        self.normalizer = normalizer
+
+    def __len__(self):
+
+        return len(self.dataset)
+
+    def __getitem__(self, index):
+
+        raw = self.dataset[index]
+
+        return self.normalizer.normalize(
+            raw
+        )
+
+
+class SFTCollator:
+
+    def __init__(
+        self,
+        tokenizer,
+        max_length,
+    ):
+
+        self.tokenizer = tokenizer
+        self.max_length = max_length
+
+        self.formatter = (
+            CanonicalPromptFormatter()
+        )
+
+    def __call__(
+        self,
+        examples,
+    ):
+
+        input_ids_list = []
+        labels_list = []
+
+        for example in examples:
+
+            user_prompt = (
+                self.formatter
+                .build_user_prompt(
+                    example
+                )
+            )
+
+            target = (
+                self.formatter
+                .get_target(
+                    example
+                )
+            )
+
+            prompt_text = (
+                self._format_prompt(
+                    user_prompt
+                )
+            )
+
+            full_text = (
+                self._format_full(
+                    user_prompt,
+                    target,
+                )
+            )
+
+            prompt_ids = (
+                self.tokenizer(
+                    prompt_text,
+                    add_special_tokens=False,
+                    truncation=True,
+                    max_length=(
+                        self.max_length
+                    ),
+                )["input_ids"]
+            )
+
+            full_ids = (
+                self.tokenizer(
+                    full_text,
+                    add_special_tokens=False,
+                    truncation=True,
+                    max_length=(
+                        self.max_length
+                    ),
+                )["input_ids"]
+            )
+
+            labels = full_ids.copy()
+
+            prompt_length = min(
+                len(prompt_ids),
+                len(labels),
+            )
+
+            labels[
+                :prompt_length
+            ] = (
+                [-100]
+                * prompt_length
+            )
+
+            input_ids_list.append(
+                full_ids
+            )
+
+            labels_list.append(
+                labels
+            )
+
+        return self._pad(
+            input_ids_list,
+            labels_list,
+        )
+
+    def _format_prompt(
+        self,
+        user_prompt,
+    ):
+
+        messages = [
+            {
+                "role": "user",
+                "content": user_prompt,
+            }
+        ]
+
+        if self.tokenizer.chat_template:
+
+            return (
+                self.tokenizer
+                .apply_chat_template(
+                    messages,
+                    tokenize=False,
+                    add_generation_prompt=True,
+                )
+            )
+
+        return (
+            f"User: {user_prompt}\n"
+            "Assistant:"
+        )
+
+    def _format_full(
+        self,
+        user_prompt,
+        target,
+    ):
+
+        messages = [
+            {
+                "role": "user",
+                "content": user_prompt,
+            },
+            {
+                "role": "assistant",
+                "content": target,
+            },
+        ]
+
+        if self.tokenizer.chat_template:
+
+            return (
+                self.tokenizer
+                .apply_chat_template(
+                    messages,
+                    tokenize=False,
+                    add_generation_prompt=False,
+                )
+            )
+
+        eos = (
+            self.tokenizer.eos_token
+            or ""
+        )
+
+        return (
+            f"User: {user_prompt}\n"
+            f"Assistant: {target}"
+            f"{eos}"
+        )
+
+    def _pad(
+        self,
+        input_ids_list,
+        labels_list,
+    ):
+
+        max_length = max(
+            len(x)
+            for x in input_ids_list
+        )
+
+        batch_size = len(
+            input_ids_list
+        )
+
+        pad_token_id = (
+            self.tokenizer.pad_token_id
+        )
+
+        input_ids = torch.full(
+            (
+                batch_size,
+                max_length,
+            ),
+            pad_token_id,
+            dtype=torch.long,
+        )
+
+        attention_mask = torch.zeros(
+            (
+                batch_size,
+                max_length,
+            ),
+            dtype=torch.long,
+        )
+
+        labels = torch.full(
+            (
+                batch_size,
+                max_length,
+            ),
+            -100,
+            dtype=torch.long,
+        )
+
+        for index, (
+            ids,
+            target_labels,
+        ) in enumerate(
+            zip(
+                input_ids_list,
+                labels_list,
+            )
+        ):
+
+            length = len(ids)
+
+            input_ids[
+                index,
+                :length,
+            ] = torch.tensor(
+                ids,
+                dtype=torch.long,
+            )
+
+            attention_mask[
+                index,
+                :length,
+            ] = 1
+
+            labels[
+                index,
+                :length,
+            ] = torch.tensor(
+                target_labels,
+                dtype=torch.long,
+            )
+
+        return {
+            "input_ids": input_ids,
+            "attention_mask":
+                attention_mask,
+            "labels": labels,
+        }
+
+
+class HFDatasetManager:
+
+    def __init__(
+        self,
+        config: DataConfig,
+        tokenizer,
+        batch_size: int,
+        max_length: int,
+    ):
+
+        self.config = config
+        self.tokenizer = tokenizer
+
+        self.batch_size = batch_size
+        self.max_length = max_length
+
+        self.normalizer = (
+            DatasetSchemaNormalizer(
+                requested_task_type=(
+                    config.task_type
+                )
+            )
+        )
+
+        self.dataset = None
+
+    def load(self):
+
+        kwargs = {
+            "path":
+                self.config.dataset_name,
+
+            "split":
+                self.config.dataset_split,
+
+            "cache_dir":
+                self.config.cache_dir,
+        }
+
+        if (
+            self.config.dataset_subset
+            is not None
+        ):
+            kwargs["name"] = (
+                self.config.dataset_subset
+            )
+
+        raw_dataset = load_dataset(
+            **kwargs
+        )
+
+        if (
+            self.config.max_samples
+            is not None
+        ):
+
+            sample_count = min(
+                self.config.max_samples,
+                len(raw_dataset),
+            )
+
+            raw_dataset = (
+                raw_dataset.select(
+                    range(sample_count)
+                )
+            )
+
+        if len(raw_dataset) == 0:
+            raise ValueError(
+                "Dataset is empty."
+            )
+
+        detected = (
+            self.normalizer
+            .detect_task_type(
+                raw_dataset[0]
+            )
+        )
+
+        print(
+            "Dataset:",
+            self.config.dataset_name,
+        )
+
+        print(
+            "Detected task type:",
+            detected,
+        )
+
+        self.dataset = (
+            CanonicalHFDataset(
+                dataset=raw_dataset,
+                normalizer=(
+                    self.normalizer
+                ),
+            )
+        )
+
+        return self.dataset
+
+    def create_dataloader(self):
+
+        if self.dataset is None:
+            self.load()
+
+        collator = SFTCollator(
+            tokenizer=self.tokenizer,
+            max_length=(
+                self.max_length
+            ),
+        )
+
+        return DataLoader(
+            self.dataset,
+            batch_size=self.batch_size,
+            shuffle=True,
+            num_workers=(
+                self.config
+                .dataloader_workers
+            ),
+            collate_fn=collator,
+        )
+
+    def get_rollout_examples(
+        self,
+        count,
+        offset=0,
+    ):
+
+        if self.dataset is None:
+            self.load()
+
+        examples = []
+
+        size = len(self.dataset)
+
+        for index in range(count):
+
+            dataset_index = (
+                offset + index
+            ) % size
+
+            examples.append(
+                self.dataset[
+                    dataset_index
+                ]
+            )
+
+        return examples

@@ -1,2 +1,27 @@
-datasets>=3.0,<4.0
-huggingface_hub
+--extra-index-url https://download.pytorch.org/whl/cu130
+
+# PyTorch / CUDA
+torch==2.13.0
+torchvision==0.28.0
+torchaudio==2.11.0
+
+# Distributed
+ray[train]==2.59.0
+
+# LLM / Inference
+vllm==0.29.0
+transformers==5.16.1
+accelerate==1.15.0
+
+# Hugging Face / Dataset
+datasets==5.0.1
+huggingface-hub==1.28.0
+safetensors==0.8.0
+sentencepiece==0.2.2
+
+# Data
+numpy==2.3.5
+pyarrow==25.0.1
+
+# Utilities
+tqdm==4.70.0
