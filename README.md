@@ -1,5 +1,5 @@
 Ray Self-Reward
-Distributed preference training with Ray + FSDP + vLLM + Human/LLM/LightGBM reward.
+Distributed preference training with Ray + FSDP + vLLM + Human / LLM / LightGBM rewards.
 ```text
 Dataset
   ↓
@@ -15,162 +15,109 @@ TransferQueue
   ↓
 FSDP DPO
   ↓
-Checkpoint
-  ↓
-vLLM Reload
-  ↺
+Checkpoint → vLLM Reload ↺
 ```
----
-Stack
-Component	Role
-Ray	orchestration / resource scheduling
-Ray Train	distributed trainer launch
-PyTorch FSDP	full-parameter distributed DPO
-vLLM	rollout / evaluation / weight reload
-TransferQueue	rollout & preference queues
-Frozen LLM	reward feature extractor
-Linear RM	neural scalar reward
-Linear Projector	LightGBM input features
-LightGBM	LambdaRank reward ranking
-Human	online reward supervision
-W&B / JSONL	metrics & feedback logging
----
 Architecture
 ```text
-                         ┌─────────────────────┐
-                         │       Dataset       │
-                         └──────────┬──────────┘
-                                    ↓
-                         ┌─────────────────────┐
-                         │   vLLM Inference    │
-                         │   N responses       │
-                         └──────────┬──────────┘
-                                    ↓
-                         ┌─────────────────────┐
-                         │    Rollout Queue    │
-                         └──────────┬──────────┘
-                                    ↓
-                ┌───────────────────┼───────────────────┐
-                ↓                   ↓                   ↓
-          ┌───────────┐      ┌─────────────┐      ┌────────────┐
-          │   Human   │      │  Linear RM  │      │  LightGBM  │
-          │  scores   │      │ Frozen LLM  │      │ Projector  │
-          └─────┬─────┘      └──────┬──────┘      └─────┬──────┘
-                └───────────────────┼────────────────────┘
-                                    ↓
-                         ┌─────────────────────┐
-                         │ Preference Filtering│
-                         └──────────┬──────────┘
-                                    ↓
-                         ┌─────────────────────┐
-                         │ Preference Queue    │
-                         └──────────┬──────────┘
-                                    ↓
-                         ┌─────────────────────┐
-                         │   FSDP + DPO        │
-                         └──────────┬──────────┘
-                                    ↓
-                         ┌─────────────────────┐
-                         │ policy_vN checkpoint│
-                         └──────────┬──────────┘
-                                    ↓
-                              vLLM reload
-                                    ↺
+Dataset
+  ↓
+vLLM Inference
+  ↓
+Rollout Queue
+  ↓
+┌────────────┬────────────┬────────────┐
+│   Human    │ Neural RM  │  LightGBM  │
+│   scores   │ Frozen LLM │ Projector  │
+└─────┬──────┴─────┬──────┴─────┬──────┘
+      └─────────────┼────────────┘
+                    ↓
+            Preference Filter
+                    ↓
+            Preference Queue
+                    ↓
+               FSDP DPO
+                    ↓
+             policy_vN
+                    ↓
+              vLLM Reload ↺
 ```
----
-Reward
+<table>
+<tr><th>Component</th><th>Role</th></tr>
+<tr><td>Ray</td><td>orchestration / scheduling</td></tr>
+<tr><td>FSDP</td><td>distributed full-parameter DPO</td></tr>
+<tr><td>vLLM</td><td>rollout / eval / weight reload</td></tr>
+<tr><td>TransferQueue</td><td>rollout & preference queues</td></tr>
+<tr><td>Frozen LLM + Linear RM</td><td>neural reward</td></tr>
+<tr><td>Projector + LightGBM</td><td>LambdaRank reward</td></tr>
+<tr><td>Human</td><td>online supervision</td></tr>
+</table>
+Reward & Filtering
 ```text
 Prompt + Response
       ↓
 Frozen LLM
       ↓
 Final Hidden State
-      ├──────────────→ Linear(hidden, 1) → Neural Reward
-      │
-      └→ Linear(hidden, feature_dim) → Projected Features
-                                      ├→ Linear Head
-                                      └→ LightGBM LambdaRank
+      ├→ Linear(hidden, 1) → Neural Reward
+      └→ Projector → Features → LightGBM LambdaRank
 ```
-Reward source	Trainable?	Device
-LLM backbone	No	GPU
-Linear reward head	Yes	GPU
-Feature projector	Yes	GPU
-Feature head	Yes	GPU
-LightGBM	Yes	CPU
-Human scores	supervision	terminal
 Human input:
 ```text
 scores (4 numbers, q=quit): 3 5 1 4
+
+highest → chosen
+lowest  → rejected
 ```
-```text
-highest score → chosen
-lowest score  → rejected
-```
----
-Filter Modes
-`--filter-mode`	Condition	Pair source
-`all`	always	Human
-`neural_agree`	Human = Neural top/bottom	Human
-`lgbm_agree`	Human = LightGBM top/bottom	Human
-`triple_agree`	Human = Neural = LightGBM	Human
-`neural_only`	Neural RM ready	Neural
-`lgbm_only`	LightGBM ready	LightGBM
-Default:
-```text
-triple_agree
-```
----
-DPO
+<table>
+<tr><th>Filter</th><th>Condition</th><th>Pair Source</th></tr>
+<tr><td><code>all</code></td><td>always</td><td>Human</td></tr>
+<tr><td><code>neural_agree</code></td><td>Human = Neural</td><td>Human</td></tr>
+<tr><td><code>lgbm_agree</code></td><td>Human = LightGBM</td><td>Human</td></tr>
+<tr><td><code>triple_agree</code></td><td>Human = Neural = LightGBM</td><td>Human</td></tr>
+<tr><td><code>neural_only</code></td><td>Neural RM ready</td><td>Neural</td></tr>
+<tr><td><code>lgbm_only</code></td><td>LightGBM ready</td><td>LightGBM</td></tr>
+</table>
+Default: `triple_agree`
+Training
 ```text
 Preference Queue
       ↓
 chosen / rejected
       ↓
-response-token log probs
+DPO Loss
       ↓
-DPO loss
+FSDP FULL_SHARD
       ↓
-FSDP optimizer step
+Optimizer Step
 ```
 ```text
 L = -log σ(
-    β [
-      (log π(chosen) - log π(rejected))
-      -
-      (log π_ref(chosen) - log π_ref(rejected))
-    ]
+  β[(log πc - log πr) - (log πref,c - log πref,r)]
 )
 ```
-Training:
-Setting	Value
-Precision	BF16
-Parallelism	FSDP
-Sharding	FULL_SHARD
-Gradient checkpointing	enabled
-Training	full-parameter
-Optimizer	AdamW
----
-Policy Sync
+<table>
+<tr><th>Setting</th><th>Value</th></tr>
+<tr><td>Precision</td><td>BF16</td></tr>
+<tr><td>Parallelism</td><td>FSDP FULL_SHARD</td></tr>
+<tr><td>Training</td><td>full-parameter DPO</td></tr>
+<tr><td>Gradient checkpointing</td><td>enabled</td></tr>
+<tr><td>Optimizer</td><td>AdamW</td></tr>
+</table>
 ```text
-FSDP training
-    ↓
 every sync_every steps
-    ↓
+        ↓
 FULL_STATE_DICT
-    ↓
+        ↓
 checkpoints/policy_vN/
-    ↓
+        ↓
 vLLM reload_weights()
-    ↓
+        ↓
 policy_version += 1
 ```
-Stale rollouts:
+Stale rollout:
 ```text
-current_version - rollout_version > max_policy_lag
-                       ↓
-                     drop
+current_version - rollout_version > max_policy_lag → DROP
 ```
----
 How to Run
 Install
 ```bash
@@ -181,11 +128,7 @@ Optional W&B:
 pip install wandb
 wandb login
 ```
-or:
-```bash
---no-wandb
-```
----
+or use `--no-wandb`.
 Start Ray
 ```bash
 ray stop
@@ -193,12 +136,9 @@ ray stop
 ray start --head \
   --dashboard-host=127.0.0.1 \
   --dashboard-port=8265
-```
-Check:
-```bash
+
 ray status
 ```
----
 2-GPU Smoke Test
 ```text
 GPU 0 → Training
@@ -213,26 +153,18 @@ CUDA_VISIBLE_DEVICES=0,1 python main.py \
   --inference-gpus 1 \
   --reward-gpus 0 \
   --n-responses 4 \
-  --prompts-per-batch 2 \
   --max-samples 100 \
   --max-steps 20 \
   --filter-mode all \
   --no-wandb
 ```
-> `--reward-gpus 0` does **not** disable reward scoring.  
-> The reward LLM runs on CPU.
----
+`--reward-gpus 0` moves the reward LLM to CPU; it does not disable reward scoring.
 4-GPU Full Run
 ```text
-GPU 0 ┐
-      ├→ FSDP Training
-GPU 1 ┘
-
-GPU 2 → vLLM Inference
-
-GPU 3 → Reward LLM + Linear Heads
-
-CPU   → LightGBM + Queue + Ray actors
+GPU 0-1 → FSDP Training
+GPU 2   → vLLM
+GPU 3   → Reward LLM
+CPU     → LightGBM + Queue + Ray actors
 ```
 ```bash
 CUDA_VISIBLE_DEVICES=0,1,2,3 python main.py \
@@ -243,186 +175,102 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python main.py \
   --reward-gpus 1 \
   --batch-size 4 \
   --n-responses 4 \
-  --prompts-per-batch 2 \
   --reward-warmup-groups 32 \
   --lgbm-refit-every 8 \
   --filter-mode triple_agree \
   --max-steps 1000 \
-  --sync-every 4 \
-  --run-name self-reward
+  --sync-every 4
 ```
-Required GPU count:
 ```text
-train_gpus + inference_gpus + reward_gpus
+required GPUs = train_gpus + inference_gpus + reward_gpus
 ```
----
 Ray Dashboard
-Local
-```bash
-ray start --head \
-  --dashboard-host=127.0.0.1 \
-  --dashboard-port=8265
-```
-Open:
+Local:
 ```text
 http://127.0.0.1:8265
 ```
----
-Remote / RunPod
-Remote server:
-```bash
-ray start --head \
-  --dashboard-host=127.0.0.1 \
-  --dashboard-port=8265
+Remote / RunPod:
+```text
+Local Browser :18265
+      ↓
+SSH Tunnel
+      ↓
+Remote Ray :8265
 ```
-Local PC:
 ```bash
 ssh -p <SSH_PORT> \
   -L 18265:localhost:8265 \
   root@<SERVER_IP>
 ```
-Open:
+Then open:
 ```text
 http://localhost:18265
 ```
-Flow:
-```text
-Browser
-localhost:18265
-      ↓
- SSH tunnel
-      ↓
-Remote :8265
-      ↓
-Ray Dashboard
-```
----
-Monitoring
-What	Command
-GPU	`watch -n 1 nvidia-smi`
-Ray resources	`ray status`
-Actors	`ray list actors`
-Tasks	`ray list tasks`
-Stop cluster	`ray stop`
----
-Data Flow
-```text
-Dataset
-  ↓
-Canonicalizer
-  ↓
-PromptFormatter
-  ↓
-vLLM
-  ↓
-{
-  prompt,
-  responses[],
-  ref_logps[],
-  policy_version
-}
-  ↓
-rollout queue
-  ↓
-reward + human
-  ↓
-{
-  prompt,
-  chosen,
-  rejected,
-  ref_chosen_logp,
-  ref_rejected_logp,
-  policy_version
-}
-  ↓
-preference queue
-  ↓
-FSDP DPO
-```
-Supported:
-```text
-auto
-conversation
-mcqa
-qa
-```
-Default:
-```text
-allenai/openbookqa
-```
----
-Logging
+<table>
+<tr><th>Monitor</th><th>Command</th></tr>
+<tr><td>GPU</td><td><code>watch -n 1 nvidia-smi</code></td></tr>
+<tr><td>Ray</td><td><code>ray status</code></td></tr>
+<tr><td>Actors</td><td><code>ray list actors</code></td></tr>
+<tr><td>Tasks</td><td><code>ray list tasks</code></td></tr>
+<tr><td>Stop</td><td><code>ray stop</code></td></tr>
+</table>
+Outputs
 ```text
 runs/
 ├── metrics.jsonl
 └── feedback.jsonl
+
+checkpoints/
+├── policy_v1/
+├── policy_v2/
+└── ...
 ```
 Key metrics:
-Category	Metrics
-Training	`train/dpo_loss`, `train/used_pairs`
-Selection	`data/selected_pairs`, `data/selection_rate`
-Agreement	`candidate_neural_agree`, `candidate_lgbm_agree`, `candidate_triple_agree`
-Queue	`queue/rollout`, `queue/preference`, `queue/stale_dropped`
-Eval	`eval/base`, `eval/score`
-Efficiency	`score_gain_per_1k_pairs`
-Version	`model/policy_version`
-Useful comparison axes:
 ```text
-performance
-   ├→ vs optimizer steps
-   ├→ vs human-labeled groups
-   └→ vs used preference pairs
+train/dpo_loss
+data/selection_rate
+data/selected_pairs
+queue/rollout
+queue/preference
+model/policy_version
+eval/base
+eval/score
+efficiency/score_gain_per_1k_pairs
 ```
----
-Main Arguments
-Group	Arguments
-Model	`--policy-name`, `--reward-name`, `--dtype`
-Train	`--train-gpus`, `--batch-size`, `--max-steps`, `--beta`
-Sync	`--sync-every`, `--max-policy-lag`
-Inference	`--inference-gpus`, `--n-responses`, `--temperature`, `--top-p`
-Reward	`--reward-gpus`, `--reward-warmup-groups`, `--lgbm-refit-every`
-Filter	`--filter-mode`
-Data	`--dataset-name`, `--dataset-subset`, `--task-type`
-Ray	`--ray-address`, `--placement-strategy`
-Logging	`--run-name`, `--output-dir`, `--wandb`, `--no-wandb`
----
-Project Structure
+Project
 ```text
 main.py
-   ↓
+  ↓
 orchestrator.py
-   ├→ data.py
-   ├→ inference/inference.py
-   ├→ reward.py
-   ├→ train/train.py
-   └→ utils.py
+  ├→ data.py
+  ├→ reward.py
+  ├→ inference/inference.py
+  ├→ train/train.py
+  └→ utils.py
 ```
-File	Role
-`main.py`	entry point
-`config.py`	CLI configuration
-`orchestrator.py`	Ray control loop
-`data.py`	dataset + queue + collator
-`reward.py`	Human / Neural RM / LightGBM
-`inference/inference.py`	vLLM
-`train/train.py`	FSDP DPO
-`utils.py`	metrics / shared state
----
+<table>
+<tr><th>File</th><th>Role</th></tr>
+<tr><td><code>orchestrator.py</code></td><td>Ray control loop</td></tr>
+<tr><td><code>data.py</code></td><td>dataset / queue / collator</td></tr>
+<tr><td><code>reward.py</code></td><td>Human / Neural RM / LightGBM</td></tr>
+<tr><td><code>inference/inference.py</code></td><td>vLLM</td></tr>
+<tr><td><code>train/train.py</code></td><td>FSDP DPO</td></tr>
+</table>
 Common Issues
-Problem	Check
-Not enough GPUs	`ray status`, `nvidia-smi`
-No optimizer steps	preference queue may not contain a full batch
-`triple_agree` selects nothing	reward warmup not finished
-Reward slow	`--reward-gpus 0` uses CPU
-Dashboard unavailable	verify SSH tunnel + Ray port 8265
-Run exits after `q`	expected behavior
-For pipeline debugging:
-```bash
---filter-mode all
+```text
+No optimizer steps
+→ preference queue has no full batch
+
+triple_agree selects nothing
+→ reward warmup not finished
+
+Reward is slow
+→ reward_gpus=0 uses CPU
+
+Pressing q exits
+→ expected behavior
 ```
-For hybrid reward experiments:
-```bash
---filter-mode triple_agree
-```
----
+Debug: `--filter-mode all`  
+Hybrid reward: `--filter-mode triple_agree`
 License
 See `LICENSE`.
