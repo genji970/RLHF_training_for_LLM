@@ -1,5 +1,10 @@
 pip install -r requirements.txt
 
+# gpu, cpu 사용량을 실시간으로 확인하기 위한 dashboard
+ray start \
+    --head \
+    --dashboard-host=0.0.0.0
+
 python main.py \
     --model-name Qwen/Qwen2.5-0.5B-Instruct \
     --dataset-name allenai/openbookqa \
