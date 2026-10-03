@@ -95,12 +95,6 @@ FSDP FULL_SHARD
 Optimizer Step
 ```
 
-```text
-L = -log σ(
-  β[(log πc - log πr) - (log πref,c - log πref,r)]
-)
-```
-
 <table>
 <tr><th>Setting</th><th>Value</th></tr>
 <tr><td>Precision</td><td>BF16</td></tr>
@@ -110,21 +104,6 @@ L = -log σ(
 <tr><td>Optimizer</td><td>AdamW</td></tr>
 </table>
 
-```text
-every sync_every steps
-        ↓
-FULL_STATE_DICT
-        ↓
-checkpoints/policy_vN/
-        ↓
-vLLM reload_weights()
-        ↓
-policy_version += 1
-```
-Stale rollout:
-```text
-current_version - rollout_version > max_policy_lag → DROP
-```
 ## How to install ##
 ```bash
 pip install -r requirements.txt
@@ -186,15 +165,6 @@ Then open:
 http://localhost:8265
 ```
 
-<table>
-<tr><th>Monitor</th><th>Command</th></tr>
-<tr><td>GPU</td><td><code>watch -n 1 nvidia-smi</code></td></tr>
-<tr><td>Ray</td><td><code>ray status</code></td></tr>
-<tr><td>Actors</td><td><code>ray list actors</code></td></tr>
-<tr><td>Tasks</td><td><code>ray list tasks</code></td></tr>
-<tr><td>Stop</td><td><code>ray stop</code></td></tr>
-</table>
-
 Outputs
 ```text
 runs/
@@ -217,18 +187,6 @@ model/policy_version
 eval/base
 eval/score
 efficiency/score_gain_per_1k_pairs
-```
-Project
-
-```text
-main.py
-  ↓
-orchestrator.py
-  ├→ data.py
-  ├→ reward.py
-  ├→ inference/inference.py
-  ├→ train/train.py
-  └→ utils.py
 ```
 
 <table>
