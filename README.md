@@ -1,5 +1,11 @@
 Ray Self-Reward
 Distributed preference training with Ray + FSDP + vLLM + Human / LLM / LightGBM rewards.
+
+```text
+The selected chosen/rejected pair is used to update the policy with DPO.
+The updated policy then generates new responses, which are scored again to produce the next round of preference data, forming a recursive self-improvement loop.
+```
+
 ```text
 Dataset
   ↓
