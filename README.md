@@ -104,39 +104,22 @@ Optimizer Step
 <tr><td>Optimizer</td><td>AdamW</td></tr>
 </table>
 
-## How to install ##
-```bash
-pip install -r requirements.txt
-```
 ## How to Run ##
-2-GPU Smoke Test
 ```text
-GPU 0 → Training
-GPU 1 → vLLM
-CPU   → Reward + LightGBM
-```
-```bash
-CUDA_VISIBLE_DEVICES=0,1 python main.py \
-  --ray-address auto \
-  --policy-name Qwen/Qwen2.5-0.5B-Instruct \
-  --train-gpus 1 \
-  --inference-gpus 1 \
-  --reward-gpus 0 \
-  --n-responses 4 \
-  --max-samples 100 \
-  --max-steps 20 \
-  --filter-mode all \
-  --no-wandb
-```
-`--reward-gpus 0` moves the reward LLM to CPU; it does not disable reward scoring.
-4-GPU Full Run
-```text
-GPU 0-1 → FSDP Training
-GPU 2   → vLLM
-GPU 3   → Reward LLM
-CPU     → LightGBM + Queue + Ray actors
-```
-```bash
+# 1) Install dependencies
+pip install -r requirements.txt
+
+# 2) Start Ray
+ray stop
+
+ray start --head \
+  --dashboard-host=127.0.0.1 \
+  --dashboard-port=8265
+
+# 3) Check Ray resources
+ray status
+
+# 4) Run
 CUDA_VISIBLE_DEVICES=0,1,2,3 python main.py \
   --ray-address auto \
   --policy-name Qwen/Qwen2.5-0.5B-Instruct \
@@ -145,12 +128,15 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python main.py \
   --reward-gpus 1 \
   --batch-size 4 \
   --n-responses 4 \
+  --prompts-per-batch 2 \
   --reward-warmup-groups 32 \
   --lgbm-refit-every 8 \
   --filter-mode triple_agree \
   --max-steps 1000 \
-  --sync-every 4
+  --sync-every 4 \
+  --run-name self-reward
 ```
+
 ```text
 required GPUs = train_gpus + inference_gpus + reward_gpus
 ```
