@@ -125,27 +125,11 @@ Stale rollout:
 ```text
 current_version - rollout_version > max_policy_lag → DROP
 ```
-How to Run
-Install
+## How to install ##
 ```bash
 pip install -r requirements.txt
 ```
-Optional W&B:
-```bash
-pip install wandb
-wandb login
-```
-or use `--no-wandb`.
-Start Ray
-```bash
-ray stop
-
-ray start --head \
-  --dashboard-host=127.0.0.1 \
-  --dashboard-port=8265
-
-ray status
-```
+## How to Run ##
 2-GPU Smoke Test
 ```text
 GPU 0 → Training
