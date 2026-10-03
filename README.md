@@ -51,6 +51,7 @@ Rollout Queue
 <tr><td>Projector + LightGBM</td><td>LambdaRank reward</td></tr>
 <tr><td>Human</td><td>online supervision</td></tr>
 </table>
+
 Reward & Filtering
 ```text
 Prompt + Response
@@ -62,12 +63,14 @@ Final Hidden State
       └→ Projector → Features → LightGBM LambdaRank
 ```
 Human input:
+
 ```text
 scores (4 numbers, q=quit): 3 5 1 4
 
 highest → chosen
 lowest  → rejected
 ```
+
 <table>
 <tr><th>Filter</th><th>Condition</th><th>Pair Source</th></tr>
 <tr><td><code>all</code></td><td>always</td><td>Human</td></tr>
@@ -90,11 +93,13 @@ FSDP FULL_SHARD
       ↓
 Optimizer Step
 ```
+
 ```text
 L = -log σ(
   β[(log πc - log πr) - (log πref,c - log πref,r)]
 )
 ```
+
 <table>
 <tr><th>Setting</th><th>Value</th></tr>
 <tr><td>Precision</td><td>BF16</td></tr>
@@ -103,6 +108,7 @@ L = -log σ(
 <tr><td>Gradient checkpointing</td><td>enabled</td></tr>
 <tr><td>Optimizer</td><td>AdamW</td></tr>
 </table>
+
 ```text
 every sync_every steps
         ↓
@@ -206,6 +212,7 @@ Then open:
 ```text
 http://localhost:18265
 ```
+
 <table>
 <tr><th>Monitor</th><th>Command</th></tr>
 <tr><td>GPU</td><td><code>watch -n 1 nvidia-smi</code></td></tr>
@@ -238,6 +245,7 @@ eval/score
 efficiency/score_gain_per_1k_pairs
 ```
 Project
+
 ```text
 main.py
   ↓
@@ -248,6 +256,7 @@ orchestrator.py
   ├→ train/train.py
   └→ utils.py
 ```
+
 <table>
 <tr><th>File</th><th>Role</th></tr>
 <tr><td><code>orchestrator.py</code></td><td>Ray control loop</td></tr>
@@ -257,6 +266,7 @@ orchestrator.py
 <tr><td><code>train/train.py</code></td><td>FSDP DPO</td></tr>
 </table>
 Common Issues
+
 ```text
 No optimizer steps
 → preference queue has no full batch
