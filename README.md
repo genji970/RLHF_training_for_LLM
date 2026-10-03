@@ -17,6 +17,43 @@ FSDP DPO
   ↓
 Checkpoint → vLLM Reload ↺
 ```
+---
+How to Run
+```text
+# 1) Install dependencies
+pip install -r requirements.txt
+
+# 2) Start Ray
+ray stop
+
+ray start --head \
+  --dashboard-host=127.0.0.1 \
+  --dashboard-port=8265
+
+# 3) Check Ray resources
+ray status
+
+# 4) Run
+CUDA_VISIBLE_DEVICES=0,1,2,3 python main.py \
+  --ray-address auto \
+  --policy-name Qwen/Qwen2.5-0.5B-Instruct \
+  --train-gpus 2 \
+  --inference-gpus 1 \
+  --reward-gpus 1 \
+  --batch-size 4 \
+  --n-responses 4 \
+  --prompts-per-batch 2 \
+  --reward-warmup-groups 32 \
+  --lgbm-refit-every 8 \
+  --filter-mode triple_agree \
+  --max-steps 1000 \
+  --sync-every 4 \
+  --run-name self-reward
+```
+```text
+required GPUs = train_gpus + inference_gpus + reward_gpus
+```
+---
 Architecture
 ```text
 Dataset
@@ -51,7 +88,7 @@ Rollout Queue
 <tr><td>Projector + LightGBM</td><td>LambdaRank reward</td></tr>
 <tr><td>Human</td><td>online supervision</td></tr>
 </table>
-
+---
 Reward & Filtering
 ```text
 Prompt + Response
@@ -63,14 +100,12 @@ Final Hidden State
       └→ Projector → Features → LightGBM LambdaRank
 ```
 Human input:
-
 ```text
 scores (4 numbers, q=quit): 3 5 1 4 <- You have to put inputs in terminal
 
 highest → chosen
 lowest  → rejected
 ```
-
 <table>
 <tr><th>Filter</th><th>Condition</th><th>Pair Source</th></tr>
 <tr><td><code>all</code></td><td>always</td><td>Human</td></tr>
@@ -80,8 +115,8 @@ lowest  → rejected
 <tr><td><code>neural_only</code></td><td>Neural RM ready</td><td>Neural</td></tr>
 <tr><td><code>lgbm_only</code></td><td>LightGBM ready</td><td>LightGBM</td></tr>
 </table>
-
 Default: `triple_agree`
+---
 Training
 ```text
 Preference Queue
@@ -94,7 +129,6 @@ FSDP FULL_SHARD
       ↓
 Optimizer Step
 ```
-
 <table>
 <tr><th>Setting</th><th>Value</th></tr>
 <tr><td>Precision</td><td>BF16</td></tr>
@@ -103,54 +137,17 @@ Optimizer Step
 <tr><td>Gradient checkpointing</td><td>enabled</td></tr>
 <tr><td>Optimizer</td><td>AdamW</td></tr>
 </table>
-
-## How to Run ##
-```text
-# 1) Install dependencies
-pip install -r requirements.txt
-
-# 2) Start Ray
-ray stop
-
-ray start --head \
-  --dashboard-host=127.0.0.1 \
-  --dashboard-port=8265
-
-# 3) Check Ray resources
-ray status
-
-# 4) Run
-CUDA_VISIBLE_DEVICES=0,1,2,3 python main.py \
-  --ray-address auto \
-  --policy-name Qwen/Qwen2.5-0.5B-Instruct \
-  --train-gpus 2 \
-  --inference-gpus 1 \
-  --reward-gpus 1 \
-  --batch-size 4 \
-  --n-responses 4 \
-  --prompts-per-batch 2 \
-  --reward-warmup-groups 32 \
-  --lgbm-refit-every 8 \
-  --filter-mode triple_agree \
-  --max-steps 1000 \
-  --sync-every 4 \
-  --run-name self-reward
-```
-
-```text
-required GPUs = train_gpus + inference_gpus + reward_gpus
-```
+---
 Ray Dashboard
 Local:
 ```text
 http://127.0.0.1:8265
 ```
-
 Then open:
 ```text
 http://localhost:8265
 ```
-
+---
 Outputs
 ```text
 runs/
@@ -174,7 +171,6 @@ eval/base
 eval/score
 efficiency/score_gain_per_1k_pairs
 ```
-
 <table>
 <tr><th>File</th><th>Role</th></tr>
 <tr><td><code>orchestrator.py</code></td><td>Ray control loop</td></tr>
@@ -183,6 +179,6 @@ efficiency/score_gain_per_1k_pairs
 <tr><td><code>inference/inference.py</code></td><td>vLLM</td></tr>
 <tr><td><code>train/train.py</code></td><td>FSDP DPO</td></tr>
 </table>
-
+---
 License
 See `LICENSE`.
