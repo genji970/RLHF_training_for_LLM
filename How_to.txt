@@ -1,17 +1,23 @@
 pip install -r requirements.txt
 
 # gpu, cpu 사용량을 실시간으로 확인하기 위한 dashboard
-ray start \
-    --head \
-    --dashboard-host=0.0.0.0
+ray stop
+ray start --head --dashboard-host=127.0.0.1 --dashboard-port=8265
 
-python main.py \
-    --model-name Qwen/Qwen2.5-0.5B-Instruct \
-    --dataset-name allenai/openbookqa \
-    --dataset-subset main \
-    --dataset-split train \
-    --task-type auto \
-    --train-gpus 3 \
-    --inference-gpus 1 \
-    --rollout-batch-size 12
+CUDA_VISIBLE_DEVICES=0,1 python main.py \
+  --ray-address auto \
+  --policy-name Qwen/Qwen2.5-0.5B-Instruct \
+  --train-gpus 1 \
+  --inference-gpus 1 \
+  --reward-gpus 0 \
+  --n-responses 4 \
+  --prompts-per-batch 2 \
+  --max-samples 100 \
+  --max-steps 20 \
+  --filter-mode all \
+  --no-wandb
 
+
+SSH forwarding
+ssh -p 22193 -L 18265:localhost:8265 root@63.141.33.107
+http://localhost:18265

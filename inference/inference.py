@@ -1,231 +1,61 @@
-from typing import Dict, List
+import os
 
-from transformers import (
-    AutoTokenizer,
-)
+os.environ["VLLM_USE_FLASHINFER_SAMPLER"] = "0"
 
-from vllm import (
-    LLM,
-    SamplingParams,
-)
+import re
+import uuid
 
-from config import (
-    ModelConfig,
-    InferenceConfig,
-)
+from transformers import AutoTokenizer
+from vllm import LLM, SamplingParams
 
-from data_load import (
-    CanonicalPromptFormatter,
-)
+from config import InferenceConfig, ModelConfig
+from data import PromptFormatter
 
 
-class VLLMInferenceWorker:
-
-    def __init__(
-        self,
-        model_config: ModelConfig,
-        inference_config:
-            InferenceConfig,
-    ):
-
-        self.model_config = (
-            model_config
-        )
-
-        self.inference_config = (
-            inference_config
-        )
-
-        self.formatter = (
-            CanonicalPromptFormatter()
-        )
-
-        self.tokenizer = (
-            AutoTokenizer
-            .from_pretrained(
-                model_config.model_name,
-                trust_remote_code=(
-                    model_config
-                    .trust_remote_code
-                ),
-            )
-        )
-
-        self.sampling_params = (
-            SamplingParams(
-                temperature=(
-                    inference_config
-                    .temperature
-                ),
-                top_p=(
-                    inference_config
-                    .top_p
-                ),
-                max_tokens=(
-                    inference_config
-                    .max_new_tokens
-                ),
-            )
-        )
-
-        self.llm = LLM(
-            model=(
-                model_config.model_name
-            ),
-
-            tensor_parallel_size=(
-                inference_config
-                .inference_gpus
-            ),
-
-            dtype=model_config.dtype,
-
-            gpu_memory_utilization=(
-                inference_config
-                .gpu_memory_utilization
-            ),
-
-            trust_remote_code=(
-                model_config
-                .trust_remote_code
-            ),
-        )
+class VLLMRolloutWorker:
+    def __init__(self, model: ModelConfig, config: InferenceConfig):
+        self.config, self.version = config, 0
+        self.tokenizer = AutoTokenizer.from_pretrained(model.policy_name, trust_remote_code=model.trust_remote_code)
+        self.llm = LLM(model=model.policy_name, tensor_parallel_size=config.inference_gpus,
+                       dtype="bfloat16", gpu_memory_utilization=config.gpu_memory_utilization,
+                       trust_remote_code=model.trust_remote_code)
+        self.sampling = SamplingParams(n=config.n_responses, temperature=config.temperature,
+                                       top_p=config.top_p, max_tokens=config.max_new_tokens, logprobs=1)
+        self.greedy = SamplingParams(temperature=0.0, max_tokens=config.max_new_tokens)
 
     def ready(self):
+        return {"status": "ready", "policy_version": self.version}
 
-        return {
-            "status": "ready",
-            "model":
-                self.model_config
-                .model_name,
+    def generate(self, examples):
+        prompts = [PromptFormatter.user_prompt(x) for x in examples]
+        texts = [PromptFormatter.chat(self.tokenizer, p) for p in prompts]
+        outputs = self.llm.generate(texts, self.sampling, use_tqdm=False)
+        groups = []
+        for ex, prompt, out in zip(examples, prompts, outputs):
+            groups.append({
+                "id": uuid.uuid4().hex,
+                "prompt": prompt,
+                "answer": ex.get("answer", ""),
+                "responses": [x.text.strip() for x in out.outputs],
+                "ref_logps": [float(x.cumulative_logprob or 0.0) for x in out.outputs],
+                "policy_version": self.version,
+            })
+        return groups
 
-            "gpus":
-                self.inference_config
-                .inference_gpus,
-        }
+    def reload(self, checkpoint_path, version):
+        self.llm.collective_rpc("reload_weights", kwargs={"weights_path": checkpoint_path})
+        self.version = int(version)
+        return self.version
 
-    def generate(
-        self,
-        examples:
-            List[Dict],
-    ):
+    def evaluate(self, examples):
+        prompts = [PromptFormatter.user_prompt(x) for x in examples]
+        outputs = self.llm.generate([PromptFormatter.chat(self.tokenizer, p) for p in prompts], self.greedy, use_tqdm=False)
+        correct = 0
+        for ex, out in zip(examples, outputs):
+            gold, pred = self._norm(ex.get("answer", "")), self._norm(out.outputs[0].text)
+            correct += int(bool(gold) and (pred == gold or gold in pred))
+        return correct / max(len(examples), 1)
 
-        prompts = []
-
-        for example in examples:
-
-            user_prompt = (
-                self.formatter
-                .build_user_prompt(
-                    example
-                )
-            )
-
-            prompts.append(
-                self._apply_chat_template(
-                    user_prompt
-                )
-            )
-
-        outputs = self.llm.generate(
-            prompts,
-            self.sampling_params,
-            use_tqdm=False,
-        )
-
-        generated_examples = []
-
-        for example, output in zip(
-            examples,
-            outputs,
-        ):
-
-            generated_text = (
-                output
-                .outputs[0]
-                .text
-                .strip()
-            )
-
-            generated_examples.append(
-                self._build_generated_example(
-                    example,
-                    generated_text,
-                )
-            )
-
-        return generated_examples
-
-    def _apply_chat_template(
-        self,
-        prompt,
-    ):
-
-        messages = [
-            {
-                "role": "user",
-                "content": prompt,
-            }
-        ]
-
-        if self.tokenizer.chat_template:
-
-            return (
-                self.tokenizer
-                .apply_chat_template(
-                    messages,
-                    tokenize=False,
-                    add_generation_prompt=True,
-                )
-            )
-
-        return (
-            f"User: {prompt}\n"
-            "Assistant:"
-        )
-
-    def _build_generated_example(
-        self,
-        original,
-        generated_text,
-    ):
-
-        task_type = original[
-            "task_type"
-        ]
-
-        result = {
-            "task_type": task_type,
-
-            "question":
-                original["question"],
-
-            "choices":
-                original.get(
-                    "choices",
-                    [],
-                ),
-
-            "reference":
-                original.get(
-                    "reference",
-                    "",
-                ),
-
-            "response": "",
-            "answer": "",
-        }
-
-        if task_type == "conversation":
-
-            result["response"] = (
-                generated_text
-            )
-
-        else:
-
-            result["answer"] = (
-                generated_text
-            )
-
-        return result
+    @staticmethod
+    def _norm(text):
+        return re.sub(r"\s+", " ", str(text).strip().lower())

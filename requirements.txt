@@ -6,12 +6,18 @@ torchvision==0.28.0
 torchaudio==2.11.0
 
 # Distributed
-ray[train]==2.59.0
+ray[default,train]>=2.59
 
 # LLM / Inference
 vllm==0.29.0
 transformers==5.16.1
 accelerate==1.15.0
+
+#
+TransferQueue==0.1.11
+tensordict==0.14.2
+scikit-learn==1.9.1
+lightgbm==4.7.0
 
 # Hugging Face / Dataset
 datasets==5.0.1

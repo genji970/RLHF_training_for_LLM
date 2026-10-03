@@ -1,0 +1,2 @@
+{"time": 1791039587.3150213, "eval/base": 0.5390625, "eval/by_optimizer_step": 0.5390625, "eval/by_human_groups": 0.5390625, "eval/by_used_pairs": 0.5390625, "axis/optimizer_step": 0, "axis/human_groups": 0, "axis/used_pairs": 0}
+{"time": 1791041588.669276, "eval/base": 0.5234375, "eval/by_optimizer_step": 0.5234375, "eval/by_human_groups": 0.5234375, "eval/by_used_pairs": 0.5234375, "axis/optimizer_step": 0, "axis/human_groups": 0, "axis/used_pairs": 0}
