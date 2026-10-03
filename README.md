@@ -65,7 +65,7 @@ Final Hidden State
 Human input:
 
 ```text
-scores (4 numbers, q=quit): 3 5 1 4
+scores (4 numbers, q=quit): 3 5 1 4 <- You have to put inputs in terminal
 
 highest → chosen
 lowest  → rejected
@@ -80,6 +80,7 @@ lowest  → rejected
 <tr><td><code>neural_only</code></td><td>Neural RM ready</td><td>Neural</td></tr>
 <tr><td><code>lgbm_only</code></td><td>LightGBM ready</td><td>LightGBM</td></tr>
 </table>
+
 Default: `triple_agree`
 Training
 ```text
