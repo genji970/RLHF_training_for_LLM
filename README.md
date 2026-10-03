@@ -88,6 +88,7 @@ Rollout Queue
 <tr><td>Projector + LightGBM</td><td>LambdaRank reward</td></tr>
 <tr><td>Human</td><td>online supervision</td></tr>
 </table>
+
 ---
 Reward & Filtering
 ```text
@@ -99,6 +100,7 @@ Final Hidden State
       ├→ Linear(hidden, 1) → Neural Reward
       └→ Projector → Features → LightGBM LambdaRank
 ```
+
 Human input:
 ```text
 scores (4 numbers, q=quit): 3 5 1 4 <- You have to put inputs in terminal
@@ -106,6 +108,7 @@ scores (4 numbers, q=quit): 3 5 1 4 <- You have to put inputs in terminal
 highest → chosen
 lowest  → rejected
 ```
+
 <table>
 <tr><th>Filter</th><th>Condition</th><th>Pair Source</th></tr>
 <tr><td><code>all</code></td><td>always</td><td>Human</td></tr>
@@ -115,6 +118,7 @@ lowest  → rejected
 <tr><td><code>neural_only</code></td><td>Neural RM ready</td><td>Neural</td></tr>
 <tr><td><code>lgbm_only</code></td><td>LightGBM ready</td><td>LightGBM</td></tr>
 </table>
+
 Default: `triple_agree`
 ---
 Training
@@ -129,6 +133,7 @@ FSDP FULL_SHARD
       ↓
 Optimizer Step
 ```
+
 <table>
 <tr><th>Setting</th><th>Value</th></tr>
 <tr><td>Precision</td><td>BF16</td></tr>
@@ -137,6 +142,7 @@ Optimizer Step
 <tr><td>Gradient checkpointing</td><td>enabled</td></tr>
 <tr><td>Optimizer</td><td>AdamW</td></tr>
 </table>
+
 ---
 Ray Dashboard
 Local:
@@ -171,6 +177,7 @@ eval/base
 eval/score
 efficiency/score_gain_per_1k_pairs
 ```
+
 <table>
 <tr><th>File</th><th>Role</th></tr>
 <tr><td><code>orchestrator.py</code></td><td>Ray control loop</td></tr>
