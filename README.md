@@ -180,22 +180,10 @@ Local:
 ```text
 http://127.0.0.1:8265
 ```
-Remote / RunPod:
-```text
-Local Browser :18265
-      ↓
-SSH Tunnel
-      ↓
-Remote Ray :8265
-```
-```bash
-ssh -p <SSH_PORT> \
-  -L 18265:localhost:8265 \
-  root@<SERVER_IP>
-```
+
 Then open:
 ```text
-http://localhost:18265
+http://localhost:8265
 ```
 
 <table>
@@ -206,6 +194,7 @@ http://localhost:18265
 <tr><td>Tasks</td><td><code>ray list tasks</code></td></tr>
 <tr><td>Stop</td><td><code>ray stop</code></td></tr>
 </table>
+
 Outputs
 ```text
 runs/
@@ -250,22 +239,6 @@ orchestrator.py
 <tr><td><code>inference/inference.py</code></td><td>vLLM</td></tr>
 <tr><td><code>train/train.py</code></td><td>FSDP DPO</td></tr>
 </table>
-Common Issues
 
-```text
-No optimizer steps
-→ preference queue has no full batch
-
-triple_agree selects nothing
-→ reward warmup not finished
-
-Reward is slow
-→ reward_gpus=0 uses CPU
-
-Pressing q exits
-→ expected behavior
-```
-Debug: `--filter-mode all`  
-Hybrid reward: `--filter-mode triple_agree`
 License
 See `LICENSE`.
