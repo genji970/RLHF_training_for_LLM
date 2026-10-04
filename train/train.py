@@ -1,5 +1,6 @@
 import functools
 import time
+import traceback
 from contextlib import nullcontext
 from pathlib import Path
 
@@ -24,7 +25,13 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 class DistributedDPOTrainLoop:
     def __call__(self, loop_config):
-        FSDPDPOTrainer(loop_config).run()
+        try:
+            print("[TRAIN] worker entered DistributedDPOTrainLoop", flush=True)
+            FSDPDPOTrainer(loop_config).run()
+        except Exception:
+            print("[TRAIN] worker crashed:", flush=True)
+            traceback.print_exc()
+            raise
 
 
 class FSDPDPOTrainer:
@@ -50,6 +57,7 @@ class FSDPDPOTrainer:
         self.per_rank_batch_size = self.cfg.train.resolved_per_rank_batch_size()
         self.grad_accum_steps = self.cfg.train.gradient_accumulation_steps
         self.global_batch_size = self.cfg.train.global_batch_size
+        self._empty_polls = 0
 
     def run(self):
         self._setup()
@@ -83,6 +91,14 @@ class FSDPDPOTrainer:
                     "train/world_size": self.world,
                     "train/local_world_size": self.local_world,
                 })
+
+            if self.rank == 0:
+                print(
+                    f"[TRAIN] optimizer_step={self.step} "
+                    f"loss={loss:.6f} used_pairs={self.used_pairs} "
+                    f"policy_v={self.version}",
+                    flush=True,
+                )
 
             if self.step % self.cfg.train.sync_every == 0:
                 self._sync_inference()
@@ -266,6 +282,15 @@ class FSDPDPOTrainer:
         microbatch has exactly `per_rank_batch_size` preference pairs.
         """
         if self.rank == 0:
+            queue_size = ray.get(self.queue.size.remote("preference"))
+            if queue_size < self.global_batch_size:
+                self._empty_polls += 1
+                if self._empty_polls == 1 or self._empty_polls % 20 == 0:
+                    print(
+                        f"[TRAIN] waiting for preference batch: "
+                        f"pending={queue_size}/{self.global_batch_size}",
+                        flush=True,
+                    )
             items, stale = ray.get(self.queue.pop.remote(
                 "preference",
                 self.global_batch_size,
@@ -276,6 +301,14 @@ class FSDPDPOTrainer:
             if stale:
                 self.tracker.log.remote({"queue/stale_dropped": stale})
             payload = items if len(items) == self.global_batch_size else None
+            if payload is not None:
+                self._empty_polls = 0
+                remaining = ray.get(self.queue.size.remote("preference"))
+                print(
+                    f"[TRAIN] popped {len(items)} preference pairs; "
+                    f"remaining={remaining}",
+                    flush=True,
+                )
         else:
             payload = None
 

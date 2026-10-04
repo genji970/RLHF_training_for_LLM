@@ -11,11 +11,11 @@ VLLM_USE_FLASHINFER_SAMPLER=0 \
 python main.py \
   --ray-address auto \
   --policy-name Qwen/Qwen2.5-0.5B-Instruct \
-  --train-gpus 1 \
+  --train-gpus 2 \
   --inference-gpus 1 \
   --reward-gpus 0 \
   --global-batch-size 4 \
-  --per-rank-batch-size 4 \
+  --per-rank-batch-size 2 \
   --gradient-accumulation-steps 1 \
   --sharding-strategy hybrid_shard \
   --n-responses 4 \

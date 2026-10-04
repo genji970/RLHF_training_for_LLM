@@ -142,9 +142,25 @@ class RayOrchestrator:
                                  "axis/optimizer_step": 0, "axis/human_groups": 0, "axis/used_pairs": 0})
         print(f"Baseline eval: {self.base_score:.4f}")
 
+    def _check_trainer(self):
+        """Fail fast if the asynchronous TorchTrainer has exited or crashed."""
+        if not hasattr(self, "trainer_ref"):
+            return False
+
+        ready, _ = ray.wait([self.trainer_ref], timeout=0)
+        if not ready:
+            return False
+
+        # Important: ray.get re-raises the real trainer exception here.
+        result = ray.get(ready[0])
+        print(f"[TRAIN] trainer finished: {result}", flush=True)
+        return True
+
     def _human_loop(self):
         ui = HumanFeedback()
         while not ray.get(self.control.should_stop.remote()):
+            if self._check_trainer():
+                break
             groups, _ = ray.get(self.queue.pop.remote("rollout", 1))
             if not groups: time.sleep(0.2); self._maybe_eval(); continue
             group = groups[0]
@@ -165,6 +181,12 @@ class RayOrchestrator:
                     {"policy_version": group["policy_version"], "status": "ready"},
                 ))
                 self.stats["selected"] += 1
+                preference_size = ray.get(self.queue.size.remote("preference"))
+                print(
+                    f"[QUEUE] selected={self.stats['selected']} "
+                    f"preference_pending={preference_size}",
+                    flush=True,
+                )
             self._log_data(); self._maybe_eval()
 
     def _record(self, group, prediction, human, decision):
