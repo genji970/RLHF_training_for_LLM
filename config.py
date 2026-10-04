@@ -27,7 +27,22 @@ class DataConfig:
 @dataclass
 class TrainConfig:
     train_gpus: int = 2
-    batch_size: int = 4
+
+    # Number of preference pairs consumed by ONE optimizer step across ALL ranks.
+    # This includes gradient accumulation.
+    global_batch_size: int = 4
+
+    # Number of preference pairs processed by ONE rank in ONE forward/backward.
+    # None => infer automatically from:
+    # global_batch_size / (train_gpus * gradient_accumulation_steps)
+    per_rank_batch_size: Optional[int] = None
+
+    gradient_accumulation_steps: int = 1
+
+    # "hybrid_shard" = FULL_SHARD inside each node + replicated across nodes.
+    # "full_shard" remains available for comparison/single-cluster experiments.
+    sharding_strategy: str = "hybrid_shard"
+
     max_length: int = 512
     learning_rate: float = 3e-6
     weight_decay: float = 0.01
@@ -38,6 +53,14 @@ class TrainConfig:
     poll_seconds: float = 0.5
     gradient_checkpointing: bool = True
     checkpoint_dir: str = "./checkpoints"
+
+    def resolved_per_rank_batch_size(self) -> int:
+        if self.per_rank_batch_size is not None:
+            return self.per_rank_batch_size
+        return self.global_batch_size // (self.train_gpus * self.gradient_accumulation_steps)
+
+    def micro_global_batch_size(self) -> int:
+        return self.resolved_per_rank_batch_size() * self.train_gpus
 
 
 @dataclass
@@ -113,8 +136,38 @@ class AppConfig:
             raise ValueError("reward_gpus must be >= 0")
         if self.inference.n_responses < 2:
             raise ValueError("n_responses must be >= 2")
-        if self.train.batch_size % self.train.train_gpus:
-            raise ValueError("batch_size must be divisible by train_gpus")
+
+        if self.train.global_batch_size < 1:
+            raise ValueError("global_batch_size must be >= 1")
+        if self.train.gradient_accumulation_steps < 1:
+            raise ValueError("gradient_accumulation_steps must be >= 1")
+        if self.train.per_rank_batch_size is not None and self.train.per_rank_batch_size < 1:
+            raise ValueError("per_rank_batch_size must be >= 1 or None")
+
+        denom = self.train.train_gpus * self.train.gradient_accumulation_steps
+        if self.train.per_rank_batch_size is None:
+            if self.train.global_batch_size % denom != 0:
+                raise ValueError(
+                    "global_batch_size must be divisible by "
+                    "train_gpus * gradient_accumulation_steps when "
+                    "per_rank_batch_size is omitted"
+                )
+        else:
+            expected = (
+                self.train.per_rank_batch_size
+                * self.train.train_gpus
+                * self.train.gradient_accumulation_steps
+            )
+            if self.train.global_batch_size != expected:
+                raise ValueError(
+                    "Inconsistent batch sizes: global_batch_size must equal "
+                    "per_rank_batch_size * train_gpus * gradient_accumulation_steps "
+                    f"({self.train.global_batch_size} != {expected})"
+                )
+
+        if self.train.sharding_strategy not in {"hybrid_shard", "full_shard"}:
+            raise ValueError("sharding_strategy must be hybrid_shard or full_shard")
+
         valid = {"all", "neural_agree", "lgbm_agree", "triple_agree", "neural_only", "lgbm_only"}
         if self.reward.filter_mode not in valid:
             raise ValueError(f"filter_mode must be one of {sorted(valid)}")
@@ -139,7 +192,18 @@ class ConfigParser:
         self._add("--eval-samples", int, DataConfig.eval_samples)
 
         self._add("--train-gpus", int, TrainConfig.train_gpus)
-        self._add("--batch-size", int, TrainConfig.batch_size)
+        p.add_argument(
+            "--global-batch-size",
+            "--batch-size",
+            dest="global_batch_size",
+            type=int,
+            default=TrainConfig.global_batch_size,
+            help="Effective preference-pair batch across all training ranks per optimizer step. "
+                 "--batch-size is kept as a backward-compatible alias.",
+        )
+        self._add("--per-rank-batch-size", int, None)
+        self._add("--gradient-accumulation-steps", int, TrainConfig.gradient_accumulation_steps)
+        self._add("--sharding-strategy", str, TrainConfig.sharding_strategy)
         self._add("--max-length", int, TrainConfig.max_length)
         self._add("--learning-rate", float, TrainConfig.learning_rate)
         self._add("--beta", float, TrainConfig.beta)
@@ -189,10 +253,23 @@ class ConfigParser:
             model=ModelConfig(a.policy_name, self._none(a.reward_name), a.dtype, a.trust_remote_code),
             data=DataConfig(a.dataset_name, self._none(a.dataset_subset), a.train_split, a.eval_split,
                             a.task_type, a.max_samples, a.eval_samples),
-            train=TrainConfig(a.train_gpus, a.batch_size, a.max_length, a.learning_rate,
-                              TrainConfig.weight_decay, a.beta, a.max_steps, a.sync_every,
-                              a.max_policy_lag, TrainConfig.poll_seconds,
-                              TrainConfig.gradient_checkpointing, a.checkpoint_dir),
+            train=TrainConfig(
+                train_gpus=a.train_gpus,
+                global_batch_size=a.global_batch_size,
+                per_rank_batch_size=a.per_rank_batch_size,
+                gradient_accumulation_steps=a.gradient_accumulation_steps,
+                sharding_strategy=a.sharding_strategy,
+                max_length=a.max_length,
+                learning_rate=a.learning_rate,
+                weight_decay=TrainConfig.weight_decay,
+                beta=a.beta,
+                max_steps=a.max_steps,
+                sync_every=a.sync_every,
+                max_policy_lag=a.max_policy_lag,
+                poll_seconds=TrainConfig.poll_seconds,
+                gradient_checkpointing=TrainConfig.gradient_checkpointing,
+                checkpoint_dir=a.checkpoint_dir,
+            ),
             inference=InferenceConfig(a.inference_gpus, a.prompts_per_batch, a.n_responses,
                                       a.max_rollout_queue, a.max_new_tokens, a.temperature,
                                       a.top_p, a.gpu_memory_utilization),
