@@ -1,0 +1,37 @@
+Timeout (0:00:30)!
+Thread 0x000077f8337fe640 (most recent call first):
+  File "/usr/lib/python3.11/threading.py", line 331 in wait
+  File "/usr/lib/python3.11/threading.py", line 629 in wait
+  File "/usr/local/lib/python3.11/dist-packages/tqdm/_monitor.py", line 69 in run
+  File "/usr/lib/python3.11/threading.py", line 1045 in _bootstrap_inner
+  File "/usr/lib/python3.11/threading.py", line 1002 in _bootstrap
+
+Thread 0x000077f8759bb640 (most recent call first):
+  File "/usr/local/lib/python3.11/dist-packages/torch/distributed/distributed_c10d.py", line 4040 in broadcast_object_list
+  File "/usr/local/lib/python3.11/dist-packages/torch/distributed/c10d_logger.py", line 83 in wrapper
+  File "/root/Recursive_RLHF_training_for_LLM/train/train.py", line 314 in _stop
+  File "/root/Recursive_RLHF_training_for_LLM/train/train.py", line 98 in run
+  File "/root/Recursive_RLHF_training_for_LLM/train/train.py", line 34 in __call__
+  File "/usr/local/lib/python3.11/dist-packages/ray/train/v2/_internal/util.py", line 89 in train_fn
+  File "/usr/local/lib/python3.11/dist-packages/ray/train/v2/_internal/execution/worker_group/worker.py", line 152 in train_fn_with_final_checkpoint_flush
+  File "/usr/local/lib/python3.11/dist-packages/ray/train/v2/_internal/execution/worker_group/thread_runner.py", line 37 in _run_target
+  File "/usr/lib/python3.11/threading.py", line 982 in run
+  File "/usr/lib/python3.11/threading.py", line 1045 in _bootstrap_inner
+  File "/usr/lib/python3.11/threading.py", line 1002 in _bootstrap
+
+Thread 0x000077f8761bc640 (most recent call first):
+  File "/usr/local/lib/python3.11/dist-packages/ray/train/v2/_internal/execution/worker_group/thread_runner.py", line 72 in _monitor_target
+  File "/usr/lib/python3.11/threading.py", line 982 in run
+  File "/usr/lib/python3.11/threading.py", line 1045 in _bootstrap_inner
+  File "/usr/lib/python3.11/threading.py", line 1002 in _bootstrap
+
+Thread 0x000078057c8b7640 (most recent call first):
+  File "/usr/lib/python3.11/threading.py", line 327 in wait
+  File "/usr/lib/python3.11/threading.py", line 629 in wait
+  File "/usr/local/lib/python3.11/dist-packages/ray/_private/gc_collect_manager.py", line 29 in run
+  File "/usr/lib/python3.11/threading.py", line 1045 in _bootstrap_inner
+  File "/usr/lib/python3.11/threading.py", line 1002 in _bootstrap
+
+Thread 0x00007806450d8280 (most recent call first):
+  File "/usr/local/lib/python3.11/dist-packages/ray/_private/worker.py", line 1069 in main_loop
+  File "/usr/local/lib/python3.11/dist-packages/ray/_private/workers/default_worker.py", line 323 in <module>

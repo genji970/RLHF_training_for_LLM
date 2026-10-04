@@ -1,0 +1,53 @@
+Timeout (0:00:30)!
+Thread 0x0000798d2b7fe640 (most recent call first):
+  File "/usr/lib/python3.11/threading.py", line 331 in wait
+  File "/usr/lib/python3.11/threading.py", line 629 in wait
+  File "/usr/local/lib/python3.11/dist-packages/tqdm/_monitor.py", line 69 in run
+  File "/usr/lib/python3.11/threading.py", line 1045 in _bootstrap_inner
+  File "/usr/lib/python3.11/threading.py", line 1002 in _bootstrap
+
+Thread 0x0000798d6ffff640 (most recent call first):
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/functional.py", line 2615 in embedding
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/sparse.py", line 189 in forward
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1832 in inner
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1884 in _call_impl
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1778 in _wrapped_call_impl
+  File "/usr/local/lib/python3.11/dist-packages/transformers/models/qwen2/modeling_qwen2.py", line 356 in forward
+  File "/usr/local/lib/python3.11/dist-packages/transformers/utils/output_capturing.py", line 262 in wrapper
+  File "/usr/local/lib/python3.11/dist-packages/transformers/utils/generic.py", line 1068 in wrapper
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1789 in _call_impl
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1778 in _wrapped_call_impl
+  File "/usr/local/lib/python3.11/dist-packages/transformers/models/qwen2/modeling_qwen2.py", line 452 in forward
+  File "/usr/local/lib/python3.11/dist-packages/transformers/utils/generic.py", line 939 in wrapper
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1789 in _call_impl
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1778 in _wrapped_call_impl
+  File "/usr/local/lib/python3.11/dist-packages/torch/distributed/fsdp/fully_sharded_data_parallel.py", line 857 in forward
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1832 in inner
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1884 in _call_impl
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1778 in _wrapped_call_impl
+  File "/root/Recursive_RLHF_training_for_LLM/train/train.py", line 1177 in _step
+  File "/root/Recursive_RLHF_training_for_LLM/train/train.py", line 112 in run
+  File "/root/Recursive_RLHF_training_for_LLM/train/train.py", line 36 in __call__
+  File "/usr/local/lib/python3.11/dist-packages/ray/train/v2/_internal/util.py", line 89 in train_fn
+  File "/usr/local/lib/python3.11/dist-packages/ray/train/v2/_internal/execution/worker_group/worker.py", line 152 in train_fn_with_final_checkpoint_flush
+  File "/usr/local/lib/python3.11/dist-packages/ray/train/v2/_internal/execution/worker_group/thread_runner.py", line 37 in _run_target
+  File "/usr/lib/python3.11/threading.py", line 982 in run
+  File "/usr/lib/python3.11/threading.py", line 1045 in _bootstrap_inner
+  File "/usr/lib/python3.11/threading.py", line 1002 in _bootstrap
+
+Thread 0x0000798d74ffd640 (most recent call first):
+  File "/usr/local/lib/python3.11/dist-packages/ray/train/v2/_internal/execution/worker_group/thread_runner.py", line 72 in _monitor_target
+  File "/usr/lib/python3.11/threading.py", line 982 in run
+  File "/usr/lib/python3.11/threading.py", line 1045 in _bootstrap_inner
+  File "/usr/lib/python3.11/threading.py", line 1002 in _bootstrap
+
+Thread 0x0000798ee3fff640 (most recent call first):
+  File "/usr/lib/python3.11/threading.py", line 327 in wait
+  File "/usr/lib/python3.11/threading.py", line 629 in wait
+  File "/usr/local/lib/python3.11/dist-packages/ray/_private/gc_collect_manager.py", line 29 in run
+  File "/usr/lib/python3.11/threading.py", line 1045 in _bootstrap_inner
+  File "/usr/lib/python3.11/threading.py", line 1002 in _bootstrap
+
+Thread 0x0000799b4ef77280 (most recent call first):
+  File "/usr/local/lib/python3.11/dist-packages/ray/_private/worker.py", line 1069 in main_loop
+  File "/usr/local/lib/python3.11/dist-packages/ray/_private/workers/default_worker.py", line 323 in <module>

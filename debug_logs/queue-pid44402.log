@@ -1,0 +1,668 @@
+[DBG] {"category": "QUEUE", "component": "queue", "event": "BEGIN:transfer_queue_init", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "run_id": "smoke01", "ts": "2026-10-04 12:59:51"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "transfer_queue_init", "timeout_sec": 30.0, "ts": "2026-10-04 12:59:51"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 5.780562, "event": "END:transfer_queue_init", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 12:59:56"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "broker_ready", "host": "d6b2a058c4be", "pid": 44402, "queues": {"preference": "preference", "rollout": "rollout"}, "rank": null, "ts": "2026-10-04 12:59:56"}
+[DBG] {"category": "QUEUE", "component": "queue", "current_version": null, "event": "BEGIN:queue_list_for_pop", "exact": false, "host": "d6b2a058c4be", "max_lag": null, "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "ts": "2026-10-04 13:00:35"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_list_for_pop", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:35"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.016923, "event": "END:queue_list_for_pop", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:35"}
+[DBG] {"available": 0, "category": "QUEUE", "component": "queue", "event": "pop_scan", "exact": false, "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "selected": 0, "stale": 0, "ts": "2026-10-04 13:00:35"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "pop_done", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "returned": 0, "stale": 0, "ts": "2026-10-04 13:00:35"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 0, "ts": "2026-10-04 13:00:35"}
+[DBG] {"category": "QUEUE", "component": "queue", "current_version": null, "event": "BEGIN:queue_list_for_pop", "exact": false, "host": "d6b2a058c4be", "max_lag": null, "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "ts": "2026-10-04 13:00:35"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_list_for_pop", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:35"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.002324, "event": "END:queue_list_for_pop", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:35"}
+[DBG] {"available": 0, "category": "QUEUE", "component": "queue", "event": "pop_scan", "exact": false, "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "selected": 0, "stale": 0, "ts": "2026-10-04 13:00:35"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "pop_done", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "returned": 0, "stale": 0, "ts": "2026-10-04 13:00:35"}
+[DBG] {"category": "QUEUE", "component": "queue", "current_version": null, "event": "BEGIN:queue_list_for_pop", "exact": false, "host": "d6b2a058c4be", "max_lag": null, "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "ts": "2026-10-04 13:00:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_list_for_pop", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.002399, "event": "END:queue_list_for_pop", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:36"}
+[DBG] {"available": 0, "category": "QUEUE", "component": "queue", "event": "pop_scan", "exact": false, "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "selected": 0, "stale": 0, "ts": "2026-10-04 13:00:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "pop_done", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "returned": 0, "stale": 0, "ts": "2026-10-04 13:00:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "current_version": null, "event": "BEGIN:queue_list_for_pop", "exact": false, "host": "d6b2a058c4be", "max_lag": null, "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "ts": "2026-10-04 13:00:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_list_for_pop", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.002657, "event": "END:queue_list_for_pop", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:36"}
+[DBG] {"available": 0, "category": "QUEUE", "component": "queue", "event": "pop_scan", "exact": false, "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "selected": 0, "stale": 0, "ts": "2026-10-04 13:00:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "pop_done", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "returned": 0, "stale": 0, "ts": "2026-10-04 13:00:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "current_version": null, "event": "BEGIN:queue_list_for_pop", "exact": false, "host": "d6b2a058c4be", "max_lag": null, "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "ts": "2026-10-04 13:00:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_list_for_pop", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.002134, "event": "END:queue_list_for_pop", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:36"}
+[DBG] {"available": 0, "category": "QUEUE", "component": "queue", "event": "pop_scan", "exact": false, "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "selected": 0, "stale": 0, "ts": "2026-10-04 13:00:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "pop_done", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "returned": 0, "stale": 0, "ts": "2026-10-04 13:00:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "current_version": null, "event": "BEGIN:queue_list_for_pop", "exact": false, "host": "d6b2a058c4be", "max_lag": null, "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "ts": "2026-10-04 13:00:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_list_for_pop", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.001875, "event": "END:queue_list_for_pop", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:36"}
+[DBG] {"available": 0, "category": "QUEUE", "component": "queue", "event": "pop_scan", "exact": false, "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "selected": 0, "stale": 0, "ts": "2026-10-04 13:00:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "pop_done", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "returned": 0, "stale": 0, "ts": "2026-10-04 13:00:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "current_version": null, "event": "BEGIN:queue_list_for_pop", "exact": false, "host": "d6b2a058c4be", "max_lag": null, "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_list_for_pop", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.001569, "event": "END:queue_list_for_pop", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:37"}
+[DBG] {"available": 0, "category": "QUEUE", "component": "queue", "event": "pop_scan", "exact": false, "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "selected": 0, "stale": 0, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "pop_done", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "returned": 0, "stale": 0, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "current_version": null, "event": "BEGIN:queue_list_for_pop", "exact": false, "host": "d6b2a058c4be", "max_lag": null, "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_list_for_pop", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.00245, "event": "END:queue_list_for_pop", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:37"}
+[DBG] {"available": 0, "category": "QUEUE", "component": "queue", "event": "pop_scan", "exact": false, "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "selected": 0, "stale": 0, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "pop_done", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "returned": 0, "stale": 0, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "current_version": null, "event": "BEGIN:queue_list_for_pop", "exact": false, "host": "d6b2a058c4be", "max_lag": null, "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_list_for_pop", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.002445, "event": "END:queue_list_for_pop", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:37"}
+[DBG] {"available": 0, "category": "QUEUE", "component": "queue", "event": "pop_scan", "exact": false, "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "selected": 0, "stale": 0, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "pop_done", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "returned": 0, "stale": 0, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "current_version": null, "event": "BEGIN:queue_list_for_pop", "exact": false, "host": "d6b2a058c4be", "max_lag": null, "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_list_for_pop", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.002279, "event": "END:queue_list_for_pop", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:37"}
+[DBG] {"available": 0, "category": "QUEUE", "component": "queue", "event": "pop_scan", "exact": false, "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "selected": 0, "stale": 0, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "pop_done", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "returned": 0, "stale": 0, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "current_version": null, "event": "BEGIN:queue_list_for_pop", "exact": false, "host": "d6b2a058c4be", "max_lag": null, "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_list_for_pop", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.002643, "event": "END:queue_list_for_pop", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:37"}
+[DBG] {"available": 0, "category": "QUEUE", "component": "queue", "event": "pop_scan", "exact": false, "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "selected": 0, "stale": 0, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "pop_done", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "returned": 0, "stale": 0, "ts": "2026-10-04 13:00:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "current_version": null, "event": "BEGIN:queue_list_for_pop", "exact": false, "host": "d6b2a058c4be", "max_lag": null, "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_list_for_pop", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.001761, "event": "END:queue_list_for_pop", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:38"}
+[DBG] {"available": 0, "category": "QUEUE", "component": "queue", "event": "pop_scan", "exact": false, "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "selected": 0, "stale": 0, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "pop_done", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "returned": 0, "stale": 0, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "BEGIN:queue_put", "host": "d6b2a058c4be", "item_id": "1ca6735207294236aadf911ae7209c2c", "pid": 44402, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_put", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.029771, "event": "END:queue_put", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "put_done", "host": "d6b2a058c4be", "key": "smoke01:rollout:1ca6735207294236aadf911ae7209c2c", "pid": 44402, "policy_version": 0, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "current_version": null, "event": "BEGIN:queue_list_for_pop", "exact": false, "host": "d6b2a058c4be", "max_lag": null, "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_list_for_pop", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.001077, "event": "END:queue_list_for_pop", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:38"}
+[DBG] {"available": 1, "category": "QUEUE", "component": "queue", "event": "pop_scan", "exact": false, "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "requested": 1, "selected": 1, "stale": 0, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "BEGIN:queue_get", "host": "d6b2a058c4be", "key": "smoke01:rollout:1ca6735207294236aadf911ae7209c2c", "pid": 44402, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_get", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.021125, "event": "END:queue_get", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "count": 1, "event": "BEGIN:clear_popped", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "clear_popped", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.012507, "event": "END:clear_popped", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "pop_done", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "returned": 1, "stale": 0, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "BEGIN:queue_put", "host": "d6b2a058c4be", "item_id": "9515beeaf50b4928a3e0a4fddca82239", "pid": 44402, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_put", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.015184, "event": "END:queue_put", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "put_done", "host": "d6b2a058c4be", "key": "smoke01:rollout:9515beeaf50b4928a3e0a4fddca82239", "pid": 44402, "policy_version": 0, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 1, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "BEGIN:queue_put", "host": "d6b2a058c4be", "item_id": "97f03ac867a748dc87b04e2d4c149ea9", "pid": 44402, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_put", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.031221, "event": "END:queue_put", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "put_done", "host": "d6b2a058c4be", "key": "smoke01:rollout:97f03ac867a748dc87b04e2d4c149ea9", "pid": 44402, "policy_version": 0, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "BEGIN:queue_put", "host": "d6b2a058c4be", "item_id": "acc8083c717c4e1cb4e6f19f507fe932", "pid": 44402, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_put", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.024119, "event": "END:queue_put", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "put_done", "host": "d6b2a058c4be", "key": "smoke01:rollout:acc8083c717c4e1cb4e6f19f507fe932", "pid": 44402, "policy_version": 0, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 3, "ts": "2026-10-04 13:00:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "BEGIN:queue_put", "host": "d6b2a058c4be", "item_id": "6395408c343c438bad9754f660d34042", "pid": 44402, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:39"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_put", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:39"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.02863, "event": "END:queue_put", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:39"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "put_done", "host": "d6b2a058c4be", "key": "smoke01:rollout:6395408c343c438bad9754f660d34042", "pid": 44402, "policy_version": 0, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:39"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "BEGIN:queue_put", "host": "d6b2a058c4be", "item_id": "740b9beca278408eaf8f44d473ae8050", "pid": 44402, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:39"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_put", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:39"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.027114, "event": "END:queue_put", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:39"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "put_done", "host": "d6b2a058c4be", "key": "smoke01:rollout:740b9beca278408eaf8f44d473ae8050", "pid": 44402, "policy_version": 0, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:39"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 5, "ts": "2026-10-04 13:00:39"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "BEGIN:queue_put", "host": "d6b2a058c4be", "item_id": "b4d3613bf97b480481e0f4bbb2f55ef6", "pid": 44402, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:39"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_put", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:39"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.011941, "event": "END:queue_put", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "put_done", "host": "d6b2a058c4be", "key": "smoke01:rollout:b4d3613bf97b480481e0f4bbb2f55ef6", "pid": 44402, "policy_version": 0, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "BEGIN:queue_put", "host": "d6b2a058c4be", "item_id": "e371f16e1747444c94e895df7effc5de", "pid": 44402, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_put", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.011598, "event": "END:queue_put", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "put_done", "host": "d6b2a058c4be", "key": "smoke01:rollout:e371f16e1747444c94e895df7effc5de", "pid": 44402, "policy_version": 0, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 7, "ts": "2026-10-04 13:00:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "BEGIN:queue_put", "host": "d6b2a058c4be", "item_id": "50d21a49ab0b40029e23801496861eaf", "pid": 44402, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_put", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.018045, "event": "END:queue_put", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "put_done", "host": "d6b2a058c4be", "key": "smoke01:rollout:50d21a49ab0b40029e23801496861eaf", "pid": 44402, "policy_version": 0, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "BEGIN:queue_put", "host": "d6b2a058c4be", "item_id": "f3a42243f206486a9f21c321a38b664b", "pid": 44402, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "stage": "queue_put", "timeout_sec": 30.0, "ts": "2026-10-04 13:00:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "elapsed_sec": 0.016007, "event": "END:queue_put", "host": "d6b2a058c4be", "pid": 44402, "rank": null, "ts": "2026-10-04 13:00:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "put_done", "host": "d6b2a058c4be", "key": "smoke01:rollout:f3a42243f206486a9f21c321a38b664b", "pid": 44402, "policy_version": 0, "queue": "rollout", "rank": null, "ts": "2026-10-04 13:00:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:41"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:41"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:41"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:41"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:41"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:42"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:42"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:42"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:42"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:43"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:43"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:43"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:43"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:43"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:44"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:44"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:44"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:44"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:44"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:45"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:45"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:45"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:45"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:45"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:46"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:46"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:46"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:46"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:46"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:47"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:47"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:47"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:47"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:48"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:48"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:48"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:48"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:48"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:49"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:49"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:49"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:49"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:49"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:50"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:50"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:50"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:50"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:50"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:51"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:51"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:51"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:51"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:51"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:52"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:52"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:52"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:52"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:52"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:53"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:53"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:53"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:53"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:54"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:54"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:54"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:54"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:54"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:55"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:55"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:55"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:55"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:55"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:56"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:56"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:56"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:56"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:56"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:57"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:57"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:57"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:57"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:57"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:58"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:58"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:58"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:58"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:59"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:59"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:59"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:59"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:00:59"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:00"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:00"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:00"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:00"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:00"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:01"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:01"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:01"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:01"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:01"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:02"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:02"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:02"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:02"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:02"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:03"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:03"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:03"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:03"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:03"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:04"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:04"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:04"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:04"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:05"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:05"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:05"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:05"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:05"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:06"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:06"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:06"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:06"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:06"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:07"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:07"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:07"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:07"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:07"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:08"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:08"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:08"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:08"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:08"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:09"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:09"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:09"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:09"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:10"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:10"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:10"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:10"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:10"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:11"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:11"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:11"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:11"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:11"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:12"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:12"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:12"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:12"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:12"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:13"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:13"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:13"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:13"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:13"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:14"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:14"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:14"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:14"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:15"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:15"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:15"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:15"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:15"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:16"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:16"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:16"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:16"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:16"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:17"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:17"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:17"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:17"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:17"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:18"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:18"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:18"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:18"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:18"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:19"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:19"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:19"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:19"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:20"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:20"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:20"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:20"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:20"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:21"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:21"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:21"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:21"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:21"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:22"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:22"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:22"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:22"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:22"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:23"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:23"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:23"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:23"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:23"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:24"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:24"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:24"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:24"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:25"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:25"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:25"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:25"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:25"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:26"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:26"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:26"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:26"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:26"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:27"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:27"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:27"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:27"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:27"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:28"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:28"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:28"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:28"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:28"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:29"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:29"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:29"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:29"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:30"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:30"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:30"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:30"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:30"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:31"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:31"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:31"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:31"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:31"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:32"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:32"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:32"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:32"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:32"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:33"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:33"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:33"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:33"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:33"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:34"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:34"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:34"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:34"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:35"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:35"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:35"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:35"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:35"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:36"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:37"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:38"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:39"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:39"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:39"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:39"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:40"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:41"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:41"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:41"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:41"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:41"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:42"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:42"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:42"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:42"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:42"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:43"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:43"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:43"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:43"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:43"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:44"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:44"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:44"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:44"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:45"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:45"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:45"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:45"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:45"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:46"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:46"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:46"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:46"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:46"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:47"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:47"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:47"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:47"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:47"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:48"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:48"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:48"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:48"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:48"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:49"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:49"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:49"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:49"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:49"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:50"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:50"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:50"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:50"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:51"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:51"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:51"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:51"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:51"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:52"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:52"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:52"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:52"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:52"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:53"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:53"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:53"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:53"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:53"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:54"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:54"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:54"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:54"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:54"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:55"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:55"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:55"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:55"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:56"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:56"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:56"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:56"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:56"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:57"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:57"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:57"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:57"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:57"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:58"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:58"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:58"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:58"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:58"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:59"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:59"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:59"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:59"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:01:59"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:00"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:00"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:00"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:00"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:01"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:01"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:01"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:01"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:01"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:02"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:02"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:02"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:02"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:02"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:03"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:03"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:03"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:03"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:03"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:04"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:04"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:04"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:04"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:04"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:05"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:05"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:05"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:05"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:05"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:06"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:06"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:06"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:06"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:07"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:07"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:07"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:07"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:07"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:08"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:08"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:08"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:08"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:08"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:09"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:09"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:09"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:09"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:09"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:10"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:10"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:10"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:10"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:11"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:11"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:11"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:11"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:11"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:12"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:12"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:12"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:12"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:12"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:13"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:13"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:13"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:13"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:13"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:14"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:14"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:14"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:14"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:14"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:15"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:15"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:15"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:15"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:16"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:16"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:16"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:16"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:16"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:17"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:17"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:17"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:17"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:17"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:18"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:18"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:18"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:18"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:18"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:19"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:19"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:19"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:19"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:19"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:20"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:20"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:20"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:20"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:21"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:21"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:21"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:21"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:21"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:22"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:22"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:22"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:22"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:22"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:23"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:23"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:23"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:23"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:23"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:24"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:24"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:24"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:24"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:24"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:25"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:25"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:25"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:25"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:26"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:26"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:26"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:26"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:26"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:27"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:27"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:27"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:27"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:27"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:28"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:28"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:28"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:28"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:28"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:29"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:29"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:29"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:29"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:29"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:30"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:30"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:30"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:30"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:31"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:31"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:31"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:31"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:31"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:32"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:32"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:32"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:32"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:32"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:33"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:33"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:33"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:33"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:33"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:34"}
+[DBG] {"category": "QUEUE", "component": "queue", "event": "size", "host": "d6b2a058c4be", "pid": 44402, "queue": "rollout", "rank": null, "size": 9, "ts": "2026-10-04 13:02:34"}

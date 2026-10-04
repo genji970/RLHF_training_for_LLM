@@ -43,6 +43,18 @@ class VLLMRolloutWorker:
         return groups
 
     def reload(self, checkpoint_path, version):
+        checkpoint_path = os.path.abspath(os.path.expanduser(str(checkpoint_path)))
+        if not os.path.isdir(checkpoint_path):
+            raise FileNotFoundError(
+                f"Local checkpoint directory is not visible to the vLLM actor: {checkpoint_path}"
+            )
+
+        weight_file = os.path.join(checkpoint_path, "pytorch_model.bin")
+        if not os.path.isfile(weight_file):
+            raise FileNotFoundError(
+                f"Local checkpoint weight file is missing: {weight_file}"
+            )
+
         self.llm.collective_rpc("reload_weights", kwargs={"weights_path": checkpoint_path})
         self.version = int(version)
         return self.version

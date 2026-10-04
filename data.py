@@ -9,6 +9,7 @@ from datasets import load_dataset
 from tensordict import TensorDict
 
 from config import DataConfig
+from debug import Debugger
 
 
 class Canonicalizer:
@@ -98,23 +99,31 @@ class PromptFormatter:
 
 
 class DatasetManager:
-    def __init__(self, config: DataConfig):
+    def __init__(self, config: DataConfig, debug_config=None):
         self.config = config
         self.normalizer = Canonicalizer(config.task_type)
         self.cache = {}
+        self.debug = Debugger(debug_config, "data")
 
     def load(self, split):
         if split not in self.cache:
             kwargs = dict(path=self.config.dataset_name, split=split, cache_dir=self.config.cache_dir)
-            if self.config.dataset_subset is not None: kwargs["name"] = self.config.dataset_subset
-            ds = load_dataset(**kwargs)
-            if self.config.max_samples: ds = ds.select(range(min(self.config.max_samples, len(ds))))
-            self.cache[split] = ds
+            if self.config.dataset_subset is not None:
+                kwargs["name"] = self.config.dataset_subset
+            with self.debug.stage("data", "dataset_load", split=split, dataset=self.config.dataset_name):
+                ds = load_dataset(**kwargs)
+                if self.config.max_samples:
+                    ds = ds.select(range(min(self.config.max_samples, len(ds))))
+                self.cache[split] = ds
+            self.debug.log("data", "dataset_ready", split=split, rows=len(self.cache[split]))
         return self.cache[split]
 
     def examples(self, split, count, offset=0):
-        ds = self.load(split)
-        return [self.normalizer(ds[(offset + i) % len(ds)]) for i in range(count)]
+        with self.debug.stage("data", "dataset_examples", split=split, count=count, offset=offset):
+            ds = self.load(split)
+            out = [self.normalizer(ds[(offset + i) % len(ds)]) for i in range(count)]
+        self.debug.log("data", "examples_ready", split=split, returned=len(out))
+        return out
 
 
 class TransferQueueBroker:
@@ -128,13 +137,17 @@ class TransferQueueBroker:
         <run_id>:<queue_id>
     """
 
-    def __init__(self, run_id: str, rollout_id: str = "rollout", preference_id: str = "preference"):
+    def __init__(self, run_id: str, rollout_id: str = "rollout", preference_id: str = "preference", debug_config=None):
         self.run_id = str(run_id)
+        self.debug = Debugger(debug_config, "queue")
         self.queue_ids = {
             "rollout": str(rollout_id),
             "preference": str(preference_id),
         }
-        tq.init()
+        self._last_sizes = {}
+        with self.debug.stage("queue", "transfer_queue_init", run_id=self.run_id):
+            tq.init()
+        self.debug.log("queue", "broker_ready", queues=self.queue_ids)
 
     def _partition(self, queue_name: str) -> str:
         if queue_name not in self.queue_ids:
@@ -150,33 +163,45 @@ class TransferQueueBroker:
     def put(self, queue_name: str, item, tag=None):
         partition = self._partition(queue_name)
         item_id = str(item.get("id") or uuid.uuid4().hex)
-
-        # Key is also globally namespaced, not just the partition.
         key = f"{self.run_id}:{self.queue_ids[queue_name]}:{item_id}"
         payload = torch.tensor(
             list(json.dumps(item).encode("utf-8")),
             dtype=torch.uint8,
         ).unsqueeze(0)
-
         metadata = {
             "run_id": self.run_id,
             "queue_id": self.queue_ids[queue_name],
             "item_id": item_id,
             **(tag or {}),
         }
-        tq.kv_put(
-            key=key,
-            partition_id=partition,
-            fields=TensorDict({"payload": payload}, batch_size=[1]),
-            tag=metadata,
+        self.debug.log(
+            "queue",
+            "put_prepare",
+            queue=queue_name,
+            item_id=item_id,
+            policy_version=metadata.get("policy_version"),
+            payload_bytes=int(payload.numel()),
+            partition=partition,
         )
+        with self.debug.stage("queue", "queue_put", queue=queue_name, item_id=item_id):
+            tq.kv_put(
+                key=key,
+                partition_id=partition,
+                fields=TensorDict({"payload": payload}, batch_size=[1]),
+                tag=metadata,
+            )
+        self.debug.log("queue", "put_done", queue=queue_name, key=key, policy_version=metadata.get("policy_version"))
         return key
 
     def pop(self, queue_name: str, n=1, current_version=None, max_lag=None, exact=False):
         partition = self._partition(queue_name)
-        info = tq.kv_list(partition_id=partition).get(partition, {})
-        keys, stale = [], []
+        with self.debug.stage(
+            "queue", "queue_list_for_pop", queue=queue_name, requested=n,
+            current_version=current_version, max_lag=max_lag, exact=exact,
+        ):
+            info = tq.kv_list(partition_id=partition).get(partition, {})
 
+        keys, stale = [], []
         for key, tag in info.items():
             if current_version is not None and max_lag is not None:
                 policy_version = int(tag.get("policy_version", current_version))
@@ -187,43 +212,82 @@ class TransferQueueBroker:
             if len(keys) == n:
                 break
 
+        self.debug.log(
+            "queue", "pop_scan", queue=queue_name, available=len(info),
+            selected=len(keys), stale=len(stale), requested=n, exact=exact,
+            selected_keys=keys, stale_keys=stale,
+        )
+
         if stale:
-            tq.kv_clear(keys=stale, partition_id=partition)
+            with self.debug.stage("queue", "clear_stale", queue=queue_name, count=len(stale)):
+                tq.kv_clear(keys=stale, partition_id=partition)
 
         if exact and len(keys) < n:
+            self.debug.log("queue", "pop_not_enough", queue=queue_name, available=len(keys), requested=n)
             return [], len(stale)
 
         items = []
         for key in keys:
-            field = tq.kv_batch_get(
-                keys=key,
-                partition_id=partition,
-                select_fields="payload",
-            )["payload"]
+            with self.debug.stage("queue", "queue_get", queue=queue_name, key=key):
+                field = tq.kv_batch_get(
+                    keys=key,
+                    partition_id=partition,
+                    select_fields="payload",
+                )["payload"]
             raw = field[0].detach().cpu().tolist()
-            items.append(json.loads(bytes(raw).decode("utf-8")))
+            decoded = json.loads(bytes(raw).decode("utf-8"))
+            items.append(decoded)
+            self.debug.log(
+                "queue",
+                "queue_item_decoded",
+                queue=queue_name,
+                key=key,
+                item_id=decoded.get("id"),
+                policy_version=decoded.get("policy_version"),
+            )
 
         if keys:
-            tq.kv_clear(keys=keys, partition_id=partition)
+            with self.debug.stage("queue", "clear_popped", queue=queue_name, count=len(keys)):
+                tq.kv_clear(keys=keys, partition_id=partition)
+        remaining = len(tq.kv_list(partition_id=partition).get(partition, {}))
+        self.debug.log(
+            "queue",
+            "pop_done",
+            queue=queue_name,
+            returned=len(items),
+            stale=len(stale),
+            item_ids=[x.get("id") for x in items],
+            remaining=remaining,
+        )
         return items, len(stale)
 
     def size(self, queue_name: str):
         partition = self._partition(queue_name)
-        return len(tq.kv_list(partition_id=partition).get(partition, {}))
+        size = len(tq.kv_list(partition_id=partition).get(partition, {}))
+        # size() is called in hot polling loops. Log only transitions so debug
+        # output does not continuously overwrite the interactive input prompt.
+        if self._last_sizes.get(queue_name) != size:
+            self.debug.log("queue", "size_changed", queue=queue_name, size=size)
+            self._last_sizes[queue_name] = size
+        return size
 
     def clear(self, queue_name: str):
         partition = self._partition(queue_name)
         info = tq.kv_list(partition_id=partition).get(partition, {})
         keys = list(info.keys())
         if keys:
-            tq.kv_clear(keys=keys, partition_id=partition)
+            with self.debug.stage("queue", "queue_clear", queue=queue_name, count=len(keys)):
+                tq.kv_clear(keys=keys, partition_id=partition)
+        self.debug.log("queue", "clear_done", queue=queue_name, count=len(keys))
         return len(keys)
 
     def close(self):
+        self.debug.log("queue", "broker_close_begin")
         try:
             tq.close()
-        except Exception:
-            pass
+        except Exception as exc:
+            self.debug.exception("queue", "broker_close_error", exc)
+        self.debug.log("queue", "broker_close_end")
 
 
 class DPOCollator:

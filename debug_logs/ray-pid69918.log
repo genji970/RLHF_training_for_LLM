@@ -1,0 +1,6 @@
+[DBG] {"category": "RAY", "component": "ray", "cpus_per_worker": 2, "event": "torch_trainer_create", "host": "d6b2a058c4be", "pid": 69918, "placement_strategy": "PACK", "rank": null, "train_gpus": 2, "ts": "2026-10-04 13:30:06"}
+[DBG] {"category": "RAY", "component": "ray", "event": "BEGIN:torch_trainer_init", "host": "d6b2a058c4be", "pid": 69918, "rank": null, "ts": "2026-10-04 13:30:06"}
+[DBG] {"category": "RAY", "component": "ray", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 69918, "rank": null, "stage": "torch_trainer_init", "timeout_sec": 30.0, "ts": "2026-10-04 13:30:06"}
+[DBG] {"category": "RAY", "component": "ray", "elapsed_sec": 0.003088, "event": "END:torch_trainer_init", "host": "d6b2a058c4be", "pid": 69918, "rank": null, "ts": "2026-10-04 13:30:06"}
+[DBG] {"category": "RAY", "component": "ray", "event": "BEGIN:torch_trainer_fit", "host": "d6b2a058c4be", "pid": 69918, "rank": null, "ts": "2026-10-04 13:30:06"}
+[DBG] {"category": "RAY", "component": "ray", "event": "watchdog_armed", "host": "d6b2a058c4be", "pid": 69918, "rank": null, "stage": "torch_trainer_fit", "timeout_sec": 30.0, "ts": "2026-10-04 13:30:06"}

@@ -107,6 +107,25 @@ class RayConfig:
     placement_strategy: str = "PACK"
 
 
+
+
+@dataclass
+class DebugConfig:
+    # Nothing is enabled unless --debug or a component flag is passed.
+    all: bool = False
+    train: bool = False
+    fsdp: bool = False
+    queue: bool = False
+    ray: bool = False
+    reward: bool = False
+    inference: bool = False
+    data: bool = False
+    log_dir: str = "./debug_logs"
+    stall_seconds: float = 60.0
+    # Ray worker/actor debug stays file-only by default so interactive input is not buried.
+    worker_stdout: bool = False
+
+
 @dataclass
 class TrackingConfig:
     output_dir: str = "./runs"
@@ -126,6 +145,7 @@ class AppConfig:
     queue: QueueConfig = field(default_factory=QueueConfig)
     ray: RayConfig = field(default_factory=RayConfig)
     tracking: TrackingConfig = field(default_factory=TrackingConfig)
+    debug: DebugConfig = field(default_factory=DebugConfig)
 
     def validate(self):
         if self.model.dtype != "bfloat16":
@@ -240,6 +260,24 @@ class ConfigParser:
         self._add("--eval-every-versions", int, TrackingConfig.eval_every_versions)
         p.add_argument("--wandb", action=argparse.BooleanOptionalAction, default=True)
 
+        # Debugging is opt-in. --debug enables all categories; otherwise enable
+        # only the subsystem(s) you want to inspect.
+        p.add_argument("--debug", action="store_true", help="Enable all debug categories")
+        p.add_argument("--debug-train", action="store_true")
+        p.add_argument("--debug-fsdp", action="store_true")
+        p.add_argument("--debug-queue", action="store_true")
+        p.add_argument("--debug-ray", action="store_true")
+        p.add_argument("--debug-reward", action="store_true")
+        p.add_argument("--debug-inference", action="store_true")
+        p.add_argument("--debug-data", action="store_true")
+        self._add("--debug-log-dir", str, DebugConfig.log_dir)
+        self._add("--debug-stall-seconds", float, DebugConfig.stall_seconds)
+        p.add_argument(
+            "--debug-worker-stdout",
+            action="store_true",
+            help="Also mirror Ray worker/actor debug logs to terminal. Default is file-only.",
+        )
+
     def _add(self, name, type_, default):
         self.p.add_argument(name, type=type_, default=default)
 
@@ -281,6 +319,22 @@ class ConfigParser:
                           RayConfig.reward_cpus, a.placement_strategy),
             tracking=TrackingConfig(a.output_dir, a.wandb, a.wandb_project,
                                     a.run_name, a.eval_every_versions),
+            debug=DebugConfig(
+                all=a.debug,
+                train=a.debug_train,
+                fsdp=a.debug_fsdp,
+                queue=a.debug_queue,
+                ray=a.debug_ray,
+                reward=a.debug_reward,
+                inference=a.debug_inference,
+                data=a.debug_data,
+                # Resolve once in the driver before Ray Train workers chdir into
+                # /tmp/ray/.../artifacts. This keeps every actor/worker writing
+                # into the same project-level debug directory.
+                log_dir=os.path.abspath(a.debug_log_dir),
+                stall_seconds=a.debug_stall_seconds,
+                worker_stdout=a.debug_worker_stdout,
+            ),
         )
         cfg.validate()
         return cfg
