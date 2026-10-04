@@ -40,21 +40,30 @@ ray start --head \
 ray status
 
 # 4) Run
-CUDA_VISIBLE_DEVICES=0,1,2,3 python main.py \
+CUDA_VISIBLE_DEVICES=0,1 \
+VLLM_USE_FLASHINFER_SAMPLER=0 \
+python main.py \
   --ray-address auto \
   --policy-name Qwen/Qwen2.5-0.5B-Instruct \
   --train-gpus 2 \
   --inference-gpus 1 \
-  --reward-gpus 1 \
-  --batch-size 4 \
+  --reward-gpus 0 \
+  --global-batch-size 4 \
+  --per-rank-batch-size 2 \
+  --gradient-accumulation-steps 1 \
+  --sharding-strategy hybrid_shard \
   --n-responses 4 \
   --prompts-per-batch 2 \
-  --reward-warmup-groups 32 \
-  --lgbm-refit-every 8 \
-  --filter-mode triple_agree \
-  --max-steps 1000 \
-  --sync-every 4 \
-  --run-name self-reward
+  --max-samples 100 \
+  --max-steps 20 \
+  --filter-mode all \
+  --queue-run-id smoke01 \
+  --no-wandb \
+  --debug-ray \
+  --debug-train \
+  --debug-fsdp \
+  --debug-queue \
+  --debug-stall-seconds 30
 ```
 ```text
 required GPUs = train_gpus + inference_gpus + reward_gpus
