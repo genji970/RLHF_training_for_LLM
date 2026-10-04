@@ -1,23 +1,36 @@
 pip install -r requirements.txt
 
-# gpu, cpu 사용량을 실시간으로 확인하기 위한 dashboard
+# Ray dashboard
 ray stop
 ray start --head --dashboard-host=127.0.0.1 --dashboard-port=8265
 
-CUDA_VISIBLE_DEVICES=0,1 python main.py \
+# 2-GPU smoke test: 1 training GPU + 1 vLLM GPU.
+# world_size=1 for training, so HYBRID_SHARD is intentionally inactive in this smoke test.
+CUDA_VISIBLE_DEVICES=0,1 \
+VLLM_USE_FLASHINFER_SAMPLER=0 \
+python main.py \
   --ray-address auto \
   --policy-name Qwen/Qwen2.5-0.5B-Instruct \
   --train-gpus 1 \
   --inference-gpus 1 \
   --reward-gpus 0 \
+  --global-batch-size 4 \
+  --per-rank-batch-size 4 \
+  --gradient-accumulation-steps 1 \
+  --sharding-strategy hybrid_shard \
   --n-responses 4 \
   --prompts-per-batch 2 \
   --max-samples 100 \
   --max-steps 20 \
   --filter-mode all \
+  --queue-run-id smoke01 \
   --no-wandb
 
+# Multi-GPU/multi-node example:
+# global_batch_size = 2 pairs/rank * 8 train ranks * 4 accumulation = 64 pairs/optimizer step
+# python main.py --train-gpus 8 --global-batch-size 64 --per-rank-batch-size 2 \
+#   --gradient-accumulation-steps 4 --sharding-strategy hybrid_shard ...
 
-SSH forwarding
+# SSH forwarding
 ssh -p 22193 -L 18265:localhost:8265 root@63.141.33.107
 http://localhost:18265
